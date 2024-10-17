@@ -13,7 +13,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../State/Cart/Action";
 
-function MenuCard({ item }) {
+function MenuCard({ item, restaurantId }) {
   const [selectedIngredients, setSelectedIngredients] = React.useState([]);
   const dispatch = useDispatch();
 
@@ -33,12 +33,10 @@ function MenuCard({ item }) {
     console.log("selectedIngredients", selectedIngredients);
     const reqData = {
       token: localStorage.getItem("token"),
-
       foodId: item.foodId,
       quantity: 1,
       ingredients: selectedIngredients,
     };
-    console.log("item1", item);
     dispatch(addItemToCart(reqData, localStorage.getItem("token")));
     console.log("reqData", reqData);
   };

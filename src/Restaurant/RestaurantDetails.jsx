@@ -33,7 +33,6 @@ function RestaurantDetails() {
   const handleFilter = (event) => {
     setFoodType(event.target.value);
     
-    console.log("food", event.target.value);
   };
 
   const handleFilterCategory = (event,value) => {
@@ -170,7 +169,7 @@ function RestaurantDetails() {
 
         <div className="space-y-5 lg:w-[80%] lg:pl-10">
           {menu?.menuItems?.map((item) => {
-            return <MenuCard key={item} item={item} />;
+            return <MenuCard key={item} item={item} restaurantId={restaurant.restaurantId} />;
           })}
         </div>
       </section>

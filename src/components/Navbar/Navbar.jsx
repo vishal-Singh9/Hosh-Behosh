@@ -51,11 +51,12 @@ function Navbar() {
         </div>
         <div>
           <IconButton>
-            <Badge color="red" badgeContent={cart.cart?.items?.length}>
-              {console.log("cart", cart)}
-              <ShoppingCartIcon sx={{ fontSize: "1.5rem", color: "black" }} />
+            <Badge color="red" badgeContent={cart.cartItems.length}>
+              
+              <ShoppingCartIcon onClick={() => navigate("/cart")} sx={{ fontSize: "1.5rem", color: "black" }} />
             </Badge>
           </IconButton>
+          
         </div>
       </div>
     </Box>

@@ -12,12 +12,13 @@ import AddLocationAltIcon from "@mui/icons-material/AddLocationAlt";
 import Cartitem from "./Cartitem";
 import AddressCard from "./AddressCard";
 import * as Yup from "yup";
-import { Formik, Field, useField,Form } from "formik";
+import { Formik, Field, useField, Form } from "formik";
 import ClearIcon from "@mui/icons-material/Clear";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createOrder } from "../../State/Order/Action";
 const items = [1, 2];
 
- export const style = {
+export const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
@@ -35,6 +36,7 @@ const initialValues = {
   PinCode: "",
   City: "",
 };
+
 const validationSchema = Yup.object().shape({
   StreetAddress: Yup.string().required("Street Address is Required"),
   State: Yup.string().required("State is Required"),
@@ -44,14 +46,29 @@ const validationSchema = Yup.object().shape({
 
 const Cart = () => {
   const [open, setOpen] = React.useState(false);
-const {cart} = useSelector((store) => store)
-
+  const { cart, auth } = useSelector((store) => store);
+  const dispatch = useDispatch();
 
   const handleClose = () => setOpen(false);
 
   const handleSubmit = (value) => {
     console.log("Form value", value);
-    setOpen(false)
+    const token = localStorage.getItem("token");
+    const reqData = {
+      token: token,
+
+      deliveryAddress: {
+        fullName: auth.user?.fullName,
+        street: value.StreetAddress,
+        state: value.State,
+        city: value.City,
+        zipCode: value.PinCode,
+      },
+      restaurantId: cart?.cart?.customer?.favorites[0]?.restaurantId,
+    };
+   
+    dispatch(createOrder(reqData));
+    setOpen(false);
   };
 
   const handleOpenAddressModel = () => {
@@ -64,25 +81,24 @@ const {cart} = useSelector((store) => store)
     <div>
       <main className="lg:flex justify-between">
         <section className="lg:w-[30%] space-y-6 lg:min-h-screen pt-10">
-          {cart.cart?.items.map((item) => {
-            return <Cartitem key={item} item={item} />;
+          {cart.cartItems?.map((item) => {
+            return <Cartitem key={item.cartItemId} item={item} />;
           })}
-          {console.log("cart 1 2 3", cart.cart?.items)}
           <Divider />
           <div className="bilDeatails px-5 text-sm">
             <p className="text-lg py-5 text-gray-800">Bill Details</p>
             <div className="space-y-3 ">
               <div className="flex justify-between text-gray-800">
                 <p>Item Total</p>
-                <p>₹ 599</p>
+                <p>₹ {cart.cart?.total}</p>
               </div>
               <div className="flex justify-between text-gray-800">
                 <p>Deliver Fee</p>
-                <p>₹ 212</p>
+                <p>₹ 49</p>
               </div>
               <div className="flex justify-between text-gray-800">
                 <p>Platform Fee</p>
-                <p>₹ 599</p>
+                <p>₹ 234</p>
               </div>
               <div className="flex justify-between text-gray-800">
                 <p>Registration and Delivery Charge</p>
@@ -92,7 +108,7 @@ const {cart} = useSelector((store) => store)
             </div>
             <div className="flex justify-between text-gray-800">
               <p>Total Pay</p>
-              <p>₹ 1599</p>
+              <p>₹ {cart.cart?.total + 234 + 49 + 599}</p>
             </div>
           </div>
         </section>

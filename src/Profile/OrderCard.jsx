@@ -3,23 +3,23 @@ import React from "react";
 import {Button} from "@mui/material";
 
 
-const OrderCard = () => {
+const OrderCard = ({item,order}) => {
   return (
     <Card className="flex justify-between items-center p-5">
       <div className="flex item-center space-x-5">
         <img
           className="h-16 w-16 "
-          src="https://images.pexels.com/photos/2092916/pexels-photo-2092916.jpeg?auto=compress&cs=tinysrgb&w=300"
+          src={item?.items[0]?.food?.images[0]}
           alt=""
         />
         <div>
-          <p>Biryani</p>
-          <p>₹ 599</p>
+          <p>{item?.items?.name}</p>
+          <p>₹ {item?.items?.totalPrice}</p>
         </div>
 
       </div>
       <div>
-        <Button  className="cursor-not-allowed">Completed</Button>
+        <Button  className="cursor-not-allowed">{order.orderStatus}</Button>
       </div>
     </Card>
   );

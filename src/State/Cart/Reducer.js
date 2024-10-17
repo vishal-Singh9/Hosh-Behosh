@@ -23,7 +23,6 @@ const cartReducer = (state = initialState, action) => {
             }
         case actionTypes.FIND_CART_SUCCESS:
         case actionTypes.CLEAR_CART_SUCCESS:
-            console.log("action.payload",action.payload)
             return {
                 ...state,
                 loading: false,
@@ -40,13 +39,11 @@ const cartReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                cartItems: state.cartItems.map((item) => {
-                    if (item._id === action.payload.id) {
-                        return action.payload
-                    } else {
-                        return item
-                    }
-                })
+                cartItems: state.cartItems.map((item) =>
+                    item.cartItemId === action.payload.cartItemId
+                        ? { ...item, ...action.payload }
+                        : item
+                ),
             };
         case actionTypes.REMOVE_CART_ITEM_SUCCESS:
             return {

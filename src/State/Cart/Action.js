@@ -4,6 +4,7 @@ import { UPDATE_MENU_ITEM_FAILURE } from "../Menu/ActionType";
 import {
     ADD_TO_CART_FAILURE,
     ADD_TO_CART_REQUEST,
+    ADD_TO_CART_SUCCESS,
     CLEAR_CART_FAILURE,
     CLEAR_CART_REQUEST,
     CLEAR_CART_SUCCESS,
@@ -27,11 +28,10 @@ export const findCart = (token) => {
         try {
             const response = await api.get('/api/cart', {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}` 
                 }
-            })
+            })      
             dispatch({ type: FIND_CART_SUCCESS, payload: response.data })
-            console.log("find cart", response.data);
         } catch (error) {
             console.log(error);
             dispatch({ type: FIND_CART_FAILURE, payload: error, })
@@ -51,7 +51,7 @@ export const addItemToCart = ( reqData,token) => {
                 }
             })
             console.log("add cart", data);
-            dispatch({ type: ADD_TO_FAVORITES_SUCCESS, payload: data })
+            dispatch({ type: ADD_TO_CART_SUCCESS, payload: {...data, restaurantId} })
         } catch (error) {
             console.log(error);
             dispatch({ type: ADD_TO_CART_FAILURE, payload: error, })
@@ -117,10 +117,13 @@ export const removeCartItem = (cartItemId,token) => {
 }
 
 export const updateCartItem = (reqData) => {
+
+    const {cartItemId,quantity} = reqData;
+    console.log("fwieugf", reqData)
     return async (dispatch) => {
         dispatch({ type: UPDATE_CART_ITEM_REQUEST })
         try {
-            const { data } = await api.put(`/api/cart/${reqData.cartId}/items/${reqData.itemId}`, reqData.data, {
+            const { data } = await api.put(`/api/cart-item/update`, {cartItemId,quantity}, {
                 headers: {
                     Authorization: `Bearer ${reqData.token}`
                 }

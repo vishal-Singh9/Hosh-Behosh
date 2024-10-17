@@ -1,5 +1,5 @@
 
-import { GET_USERS_ORDERS_FAILURE, 
+import {  GET_USERS_ORDERS_FAILURE, 
     GET_USERS_ORDERS_REQUEST, 
     GET_USERS_ORDERS_SUCCESS } from "./ActionTypes";
 
@@ -12,12 +12,15 @@ const initialState = {
 export const orderReducer = (state = initialState,{type,payload}) => {
     switch (type) {
         case GET_USERS_ORDERS_REQUEST:
+
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
+
             }
         case GET_USERS_ORDERS_SUCCESS:
+                console.log("payload", payload)
             return {
                 ...state,
                 loading: false,
