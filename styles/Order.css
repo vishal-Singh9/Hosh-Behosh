@@ -1,0 +1,138 @@
+/* Global Styles */
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #f5f5f5;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    color: #333;
+    padding: 1.5rem 0;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  /* Orders Container */
+  .orders-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .order-heading {
+    font-size: 1.8rem;
+    color: #ff6347;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  /* Order Card */
+  .order-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .order-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .order-id {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #555;
+  }
+  
+  .order-date {
+    font-size: 0.9rem;
+    color: #999;
+  }
+  
+  .order-items {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .order-item:last-child {
+    border-bottom: none;
+  }
+  
+  .item-name {
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  .item-quantity {
+    font-size: 0.9rem;
+    color: #777;
+  }
+  
+  .order-total {
+    font-size: 1.2rem;
+    color: #ff6347;
+    font-weight: bold;
+    margin-top: 1rem;
+    text-align: right;
+  }
+  
+  /* Button */
+  .order-action-btn {
+    background-color: #ff6347;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .order-action-btn:hover {
+    background-color: #e75335;
+  }
+  
+  @media (max-width: 768px) {
+    .orders-container {
+      padding: 1rem;
+    }
+  
+    .order-card {
+      padding: 1rem;
+    }
+  
+    .order-id,
+    .order-total {
+      font-size: 0.9rem;
+    }
+  
+    .item-name {
+      font-size: 1rem;
+    }
+  }
+  

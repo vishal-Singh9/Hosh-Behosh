@@ -5,9 +5,9 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeCartItem, updateCartItem } from "../../State/Cart/Action";
+import "/Users/indianic/Desktop/Swimmy/styles/CartItem.css";
 
 const Cartitem = ({ item }) => {
-
   const { auth, cart } = useSelector((store) => store);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,37 +30,26 @@ const Cartitem = ({ item }) => {
   };
 
   return (
-    <div className="px-5 ">
-      <div className="lg:flex items-center lg:space-x-5">
+    <div className="cart-item">
+      <div className="cart-item-details">
+        <img src={item.food.images[0]} alt={item.food.name} />
         <div>
-          <img
-            className="w-[5rem] h-[5rem] object-cover"
-            src={item.food.images[0]}
-            alt=""
-          />
-        </div>
-        <div className="flex items-center justify-between lg:w-[70%]">
-          <div className="space-y-1 lg:space-y-3 w-full">
-            <p>{item.food.name}</p>
-            <div className="flex items-center space-x-1">
-              <IconButton onClick={() => handleUpdateCartItem(-1)}>
-                <RemoveCircleOutlineIcon />
-              </IconButton>
-              <div className="w-5 h-5 text-xs flex items-center justify-center">
-                {item.quantity}
-              </div>
-              <IconButton onClick={() => handleUpdateCartItem(1)}>
-                <AddCircleIcon />
-              </IconButton>
-            </div>
-            <div className="flex justify-between items-center"></div>
+          <p>{item.food.name}</p>
+          <div className="cart-item-actions">
+            <IconButton className="icon-btn" onClick={() => handleUpdateCartItem(-1)}>
+              <RemoveCircleOutlineIcon />
+            </IconButton>
+            <span>{item.quantity}</span>
+            <IconButton className="icon-btn" onClick={() => handleUpdateCartItem(1)}>
+              <AddCircleIcon />
+            </IconButton>
           </div>
-          <p>₹{item.totalPrice}</p>
         </div>
+        <div className="cart-item-price">₹{item.totalPrice}</div>
       </div>
-      <div className="pt-3 space-x-2">
-        {item.ingredients.map((ingredients) => (
-          <Chip label={ingredients} key={ingredients} color="primary" />
+      <div className="cart-item-ingredients">
+        {item.ingredients.map((ingredient) => (
+          <Chip label={ingredient} key={ingredient} className="chip" color="primary" />
         ))}
       </div>
     </div>

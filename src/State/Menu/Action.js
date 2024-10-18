@@ -38,7 +38,6 @@ export const createMenuItem = ({ menu, token }) => {
 }
 
 export const getMenuItemsByRestaurantId = ({ token,restaurantId, vegetarian, nonveg, seasonal, foodCategory }) => {
-    console.log( "restaurantId", restaurantId,vegetarian,nonveg,seasonal,foodCategory);
     return async (dispatch) => {
         dispatch({ type: GET_MENU_ITEMS_BY_RESTAURANTS_ID_REQUEST });
         try {

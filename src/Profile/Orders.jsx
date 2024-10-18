@@ -3,10 +3,10 @@ import OrderCard from "./OrderCard";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getUsersOrders } from "../State/Order/Action";
+import "/styles/Order.css";
 
 const Orders = () => {
   const { auth, order } = useSelector((store) => store);
-console.log("ordersssss", order)
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
@@ -25,11 +25,10 @@ console.log("ordersssss", order)
       <h1 className="text-xl text-center oy-7 font-semibold">My Orders</h1>
       <div className="space-y-5 w-full lg:w-1/2">
        {
-        order.orders?.map((order,item) => (
-          <OrderCard key={item.orderId} order={order} />
+        order.orders?.map((order) => order?.items?.map((item) =>
+          <OrderCard key={item.orderId} order={order} item={item} />
         ))
        }
-       {console.log("orders", order)}
       </div>
     </div>
   );

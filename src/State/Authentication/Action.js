@@ -40,12 +40,12 @@ export const registerUser = (reqData) => async (dispatch) => {
 
 
 export const LoginUser = (reqData) => async (dispatch) => {
+console.log("reqData", reqData)
 
 
     dispatch({ type: LOGIN_REQUEST })
     try {
         const { data } = await axios.post(`${API_URL}/auth/signin`, reqData.userData);
-        console.log(data)
         if (data.token) localStorage.setItem("token", data.token);
 
         if (data.role === "ROLE_RESTAURANT_OWNER") {
@@ -55,8 +55,7 @@ export const LoginUser = (reqData) => async (dispatch) => {
             reqData.navigate("/")
         }
         dispatch({ type: LOGIN_SUCCESS, payload: data.token })
-        console.log("LOGIN SUCCESSFULLY");
-    }
+  }
     catch (error) {
         dispatch({ type: LOGIN_FAILURE, payload: error })
         console.log(error);
@@ -73,6 +72,8 @@ export const getUser = (token) => async (dispatch) => {
                 Authorization: `Bearer ${token}`
             }
         });
+
+        localStorage.setItem("user", JSON.stringify(data));
 
         dispatch({ type:GET_USER_SUCCESS, payload: data})
     }

@@ -1,0 +1,55 @@
+.navbar-container {
+    background: linear-gradient(90deg, #e74c3c, #e84393);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+  
+  .logo:hover {
+    color: #ffd700; /* Gold color on hover */
+    text-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .navbar-container .MuiSvgIcon-root {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .navbar-container .MuiSvgIcon-root:hover {
+    transform: scale(1.2);
+  }
+  
+  .navbar-container .MuiBadge-badge {
+    background-color: #f44336; /* Error Red */
+    color: white;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
+  
+  .avatar {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .avatar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 8px rgba(255, 105, 135, 0.3);
+  }
+  
+  .icon:hover {
+    color: #ffd700; /* Change to gold color on hover */
+  }
+  
+  /* Responsive Design for Small Screens */
+  @media (max-width: 768px) {
+    .navbar-container {
+      padding: 0.5rem 1rem;
+      flex-direction: column;
+    }
+    .logo {
+      margin-bottom: 1rem;
+    }
+  }
+  

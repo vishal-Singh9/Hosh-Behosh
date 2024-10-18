@@ -1,25 +1,25 @@
 import { Card } from "@mui/material";
 import React from "react";
-import {Button} from "@mui/material";
+import { Button } from "@mui/material";
+import "/styles/OrderCard.css";
 
-
-const OrderCard = ({item,order}) => {
+const OrderCard = ({ order, item }) => {
+  console.log("order", order, "item", item);
   return (
-    <Card className="flex justify-between items-center p-5">
-      <div className="flex item-center space-x-5">
+    <Card className="order-card">
+      <div className="item-details">
         <img
-          className="h-16 w-16 "
-          src={item?.items[0]?.food?.images[0]}
-          alt=""
+          className="food-img"
+          src={item?.food?.images[0]}
+          alt={item?.food?.name}
         />
-        <div>
-          <p>{item?.items?.name}</p>
-          <p>₹ {item?.items?.totalPrice}</p>
+        <div className="details-text">
+          <p>{item?.food?.name}</p>
+          <p>₹ {item?.food?.price}</p>
         </div>
-
       </div>
       <div>
-        <Button  className="cursor-not-allowed">{order.orderStatus}</Button>
+        <Button className="status-button">{order.orderStatus}</Button>
       </div>
     </Card>
   );

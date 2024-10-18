@@ -10,7 +10,7 @@ import { Divider, Drawer, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../State/Authentication/Action";
-
+import "/Users/indianic/Desktop/Swimmy/styles/ProfileNavigation.css"
 // Menu items with icons
 const menu = [
   { title: "Orders", icon: <ShoppingBagIcon /> },
@@ -51,23 +51,25 @@ const ProfileNavigation = ({ open, handleClose }) => {
         sx={{
           zIndex: 1,
           position: "sticky",
+          backgroundColor: "#f4f4f9",
+          boxShadow: isSmallScreen ? "none" : "3px 0 8px rgba(0, 0, 0, 0.1)",
         }}
       >
         <div
-          className={`flex flex-col justify-center text-lg pt-10 gap-4 md:gap-6 lg:gap-8 ${
+          className={`drawer-container flex flex-col justify-center text-lg pt-10 gap-4 md:gap-6 lg:gap-8 ${
             isSmallScreen ? "w-[75vw]" : isMediumScreen ? "w-[50vw]" : "w-[20vw]"
           } h-[100vh]`}
         >
           {menu.map((item, i) => (
-            <div key={i} className="w-full">
+            <div key={i} className="menu-item w-full">
               <div
                 onClick={() => handleNavigate(item)}
-                className="px-5 flex items-center space-x-4 cursor-pointer hover:bg-gray-100 transition-all duration-200 py-3"
+                className="px-5 flex items-center space-x-4 cursor-pointer hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-600 hover:text-white transition-all duration-300 py-3 rounded-lg"
               >
-                {item.icon}
+                <span className="icon">{item.icon}</span>
                 <span>{item.title}</span>
               </div>
-              {i !== menu.length - 1 && <Divider />} {/* Divider between menu items */}
+              {i !== menu.length - 1 && <Divider />}
             </div>
           ))}
         </div>

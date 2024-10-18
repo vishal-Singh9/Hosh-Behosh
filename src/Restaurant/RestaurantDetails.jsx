@@ -18,7 +18,7 @@ import {
   getRestaurantsCategories,
 } from "../State/Restaurant/Action";
 import { getMenuItemsByRestaurantId } from "../State/Menu/Action";
-
+import "/Users/indianic/Desktop/Swimmy/styles/RestaurantDetails.css"
 const foodTypes = [
   { label: "All", value: "all" },
   { label: "Veg", value: "veg" },
@@ -27,6 +27,7 @@ const foodTypes = [
 ];
 
 function RestaurantDetails() {
+
   const [foodType, setFoodType] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -65,6 +66,9 @@ function RestaurantDetails() {
       })
     );
   }, [selectedCategory,foodType,id ,token]);
+
+  const images = restaurant?.restaurant?.images || []; // Default to an empty array if images don't exist
+
   return (
     <div className="px-5 lg:px-20 ">
       <section>
@@ -72,30 +76,18 @@ function RestaurantDetails() {
           Home/India/Indian fast food/3
         </h3>
         <div>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <img
-                className="w-full h-[40vh] object-cover"
-                src={restaurant?.restaurant?.images}
-                alt=""
-              />
-            </Grid>
-            <Grid item lg={6}>
-              <img
-                className="w-full h-[40vh] object-cover"
-                src={restaurant?.restaurant?.images}
-                alt=""
-              />
-            </Grid>
-            <Grid item lg={6}>
-              <img
-                className="w-full h-[40vh] object-cover"
-                src={restaurant?.restaurant?.images}
-                alt=""
-              />
-            </Grid>
+      <Grid container spacing={2}>
+        {images.slice(0, 3).map((image, index) => (
+          <Grid item xs={12} lg={index === 0 ? 12 : 6} key={index}>
+            <img
+              className="w-full h-[40vh] object-cover"
+              src={image}
+              alt={`Image ${index + 1} not found`}
+            />
           </Grid>
-        </div>
+        ))}
+      </Grid>
+    </div>
         <div className="pt-3 pb-5 ">
           <h1 className="text-4xl font-semibold">
             {restaurant?.restaurant?.name}

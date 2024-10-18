@@ -1,0 +1,71 @@
+/* EventCard CSS */
+
+/* Card hover effect */
+.event-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 15px;
+  }
+  
+  .event-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Card media hover effect */
+  .event-card-media {
+    transition: transform 0.3s;
+    overflow: hidden;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+  
+  .event-card-media:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Card content styles */
+  .event-card-content {
+    padding: 20px;
+  }
+  
+  .event-card-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .event-card-description {
+    font-size: 1.2rem;
+    color: #777;
+    margin-bottom: 1rem;
+  }
+  
+  .event-card-location {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .event-card-date {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  .event-card-date.start {
+    color: #007BFF;
+  }
+  
+  .event-card-date.end {
+    color: #FF6347;
+  }
+  
+  .event-card-action {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .event-card-delete {
+    color: #ff1744;
+    cursor: pointer;
+  }
+  
+  

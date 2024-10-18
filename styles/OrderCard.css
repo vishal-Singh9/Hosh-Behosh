@@ -1,0 +1,80 @@
+.order-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 1.5rem;
+  }
+  
+  .order-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .order-card .item-details {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .order-card img {
+    height: 80px;
+    width: 80px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-card .details-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .order-card .details-text p:first-child {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.3rem;
+  }
+  
+  .order-card .details-text p:last-child {
+    font-size: 1.1rem;
+    color: #ff6347;
+    font-weight: 500;
+  }
+  
+  .order-card .status-button {
+    background-color: #ff6347;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: not-allowed;
+    transition: background-color 0.3s ease;
+  }
+  
+  .order-card .status-button:hover {
+    background-color: #ff3c1a;
+  }
+  
+  @media (max-width: 768px) {
+    .order-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .order-card .item-details {
+      margin-bottom: 1rem;
+    }
+  
+    .order-card .status-button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  

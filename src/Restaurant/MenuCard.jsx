@@ -12,6 +12,7 @@ import { categoriseIngredients } from "../components/utils/categoriseIngredients
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../State/Cart/Action";
+import "/styles/MenuCard.css"
 
 function MenuCard({ item, restaurantId }) {
   const [selectedIngredients, setSelectedIngredients] = React.useState([]);

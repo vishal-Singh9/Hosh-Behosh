@@ -6,27 +6,27 @@ import {
   Grid,
   Modal,
   TextField,
+  Typography,
 } from "@mui/material";
 import React from "react";
 import AddLocationAltIcon from "@mui/icons-material/AddLocationAlt";
 import Cartitem from "./Cartitem";
 import AddressCard from "./AddressCard";
 import * as Yup from "yup";
-import { Formik, Field, useField, Form } from "formik";
+import { Formik, Field, Form } from "formik";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from "../../State/Order/Action";
-const items = [1, 2];
 
 export const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  outline: "none",
-  boxShadow: 24,
+  width: 500,
+  bgcolor: "#f9fafc", // Light background for modal
+  borderRadius: "10px",
+  boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)",
   p: 4,
 };
 
@@ -52,21 +52,20 @@ const Cart = () => {
   const handleClose = () => setOpen(false);
 
   const handleSubmit = (value) => {
-    console.log("Form value", value);
     const token = localStorage.getItem("token");
     const reqData = {
       token: token,
-
       deliveryAddress: {
         fullName: auth.user?.fullName,
         street: value.StreetAddress,
         state: value.State,
         city: value.City,
         zipCode: value.PinCode,
+        country: "India",
       },
       restaurantId: cart?.cart?.customer?.favorites[0]?.restaurantId,
     };
-   
+
     dispatch(createOrder(reqData));
     setOpen(false);
   };
@@ -78,65 +77,79 @@ const Cart = () => {
   const createOrderUsingSelectedAddress = () => {};
 
   return (
-    <div>
+    <div className="cart-container bg-[#f0f4f7] p-6 lg:p-10 min-h-screen">
       <main className="lg:flex justify-between">
-        <section className="lg:w-[30%] space-y-6 lg:min-h-screen pt-10">
+        {/* Cart Items Section */}
+        <section className="lg:w-[30%] space-y-6 lg:min-h-screen pt-10 bg-white rounded-lg shadow-lg p-5">
           {cart.cartItems?.map((item) => {
             return <Cartitem key={item.cartItemId} item={item} />;
           })}
           <Divider />
-          <div className="bilDeatails px-5 text-sm">
-            <p className="text-lg py-5 text-gray-800">Bill Details</p>
-            <div className="space-y-3 ">
+          {/* Bill Details */}
+          <div className="bill-details px-5 text-sm">
+            <Typography className="text-lg py-5 text-gray-800" variant="h6">
+              Bill Details
+            </Typography>
+            <div className="space-y-3">
               <div className="flex justify-between text-gray-800">
-                <p>Item Total</p>
-                <p>₹ {cart.cart?.total}</p>
+                <Typography>Item Total</Typography>
+                <Typography>₹ {cart.cart?.total}</Typography>
               </div>
               <div className="flex justify-between text-gray-800">
-                <p>Deliver Fee</p>
-                <p>₹ 49</p>
+                <Typography>Deliver Fee</Typography>
+                <Typography>₹ 49</Typography>
               </div>
               <div className="flex justify-between text-gray-800">
-                <p>Platform Fee</p>
-                <p>₹ 234</p>
+                <Typography>Platform Fee</Typography>
+                <Typography>₹ 234</Typography>
               </div>
               <div className="flex justify-between text-gray-800">
-                <p>Registration and Delivery Charge</p>
-                <p>₹ 599</p>
+                <Typography>Registration and Delivery Charge</Typography>
+                <Typography>₹ 599</Typography>
               </div>
               <Divider />
             </div>
-            <div className="flex justify-between text-gray-800">
-              <p>Total Pay</p>
-              <p>₹ {cart.cart?.total + 234 + 49 + 599}</p>
+            <div className="flex justify-between text-gray-800 font-semibold">
+              <Typography>Total Pay</Typography>
+              <Typography>₹ {cart.cart?.total + 234 + 49 + 599}</Typography>
             </div>
           </div>
         </section>
+
         <Divider orientation="vertical" flexItem />
-        <section className="lg:w-[70%] flex justify-center px-5 pb-10 lg:pb-0 ">
+
+        {/* Delivery Address Section */}
+        <section className="lg:w-[70%] flex justify-center px-5 pb-10 lg:pb-0">
           <div>
-            <h1 className="text-center text-2xl font-semibold py-10">
+            <Typography
+              className="text-center text-2xl font-semibold py-10 text-[#007bff]"
+              variant="h4"
+            >
               Choose Delivery Address
-            </h1>
-            <div className="flex justify-center gap-5 flex-wrap ">
+            </Typography>
+            <div className="flex justify-center gap-5 flex-wrap">
               {[1, 2, 3, 4, 5, 6].map((item) => {
                 return (
                   <AddressCard
                     key={item}
                     showButton={true}
                     handleSelectAddress={createOrderUsingSelectedAddress}
+                    className="hover:scale-105 transition-transform duration-300 ease-in-out"
                   />
                 );
               })}
-              <Card className="flex gap-5 w-64 p-5">
-                <AddLocationAltIcon color="primary" />
+              {/* Add New Address Card */}
+              <Card className="flex gap-5 w-64 p-5 shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out bg-[#f9fafa] rounded-lg cursor-pointer hover:bg-[#007bff] hover:text-white">
+                <AddLocationAltIcon color="primary" fontSize="large" />
                 <div className="space-y-3 text-gray-500">
-                  <h1 className="font-semibold text-lg">Add New Address</h1>
-
+                  <Typography className="font-semibold text-lg">
+                    Add New Address
+                  </Typography>
                   <Button
                     variant="outlined"
                     fullWidth
                     onClick={handleOpenAddressModel}
+                    className="hover:bg-white hover:text-[#007bff]"
                   >
                     Add
                   </Button>
@@ -147,12 +160,8 @@ const Cart = () => {
         </section>
       </main>
 
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      {/* Add Address Modal */}
+      <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <Formik
             initialValues={initialValues}
@@ -161,19 +170,7 @@ const Cart = () => {
           >
             {({ isSubmitting }) => (
               <Form>
-                <Grid
-                  container
-                  spacing={2}
-                  sx={{
-                    "& .MuiInputBase-input": {
-                      color: "black",
-                    },
-                    "&:focus-visible": {
-                      outline: "none",
-                      borderColor: "primary.main",
-                    },
-                  }}
-                >
+                <Grid container spacing={2}>
                   <ClearIcon
                     onClick={handleClose}
                     className="cursor-pointer "
@@ -181,7 +178,6 @@ const Cart = () => {
                     sx={{
                       position: "absolute",
                       top: 6,
-
                       right: 8,
                       cursor: "pointer",
                     }}
@@ -193,24 +189,27 @@ const Cart = () => {
                       label="Street Address"
                       fullWidth
                       variant="outlined"
+                      required
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={6}>
                     <Field
                       as={TextField}
                       name="State"
                       label="State"
                       fullWidth
                       variant="outlined"
+                      required
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={6}>
                     <Field
                       as={TextField}
                       name="PinCode"
                       label="PinCode"
                       fullWidth
                       variant="outlined"
+                      required
                       type="number"
                     />
                   </Grid>
@@ -221,6 +220,7 @@ const Cart = () => {
                       label="City"
                       fullWidth
                       variant="outlined"
+                      required
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -228,8 +228,8 @@ const Cart = () => {
                       type="submit"
                       variant="contained"
                       color="primary"
-                      disabled={isSubmitting}
                       fullWidth
+                      disabled={isSubmitting}
                     >
                       Deliver Here
                     </Button>

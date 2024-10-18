@@ -5,10 +5,11 @@ import React from "react";
 import { Person } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import "/styles/Navbar.css";
 function Navbar() {
   const { auth,cart } = useSelector((store) => store);
   const navigate = useNavigate();
+
 
   const handleAvatarClick = () => {
     if (auth?.user?.role === "ROLE_CUSTOMER") {
@@ -18,9 +19,10 @@ function Navbar() {
     }
   };
 
+
   
   return (
-    <Box className="px-5 sticky top-0 z-50 py-[.9rem] bg-red-600 lg:px-20 flex justify-between items-center">
+    <Box className="navbar-container px-5 sticky top-0 z-50 py-[.9rem] lg:px-20 flex justify-between items-center">
       <div className="lg:mr-10 cursor-pointer flex items-center space-x-4">
         <div
           onClick={() => navigate("/")}
@@ -62,5 +64,6 @@ function Navbar() {
     </Box>
   );
 }
+
 
 export default Navbar;

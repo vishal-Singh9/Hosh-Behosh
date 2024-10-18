@@ -1,0 +1,97 @@
+/* Profile Navigation Menu Styles */
+
+.drawer-container {
+    background-color: #f4f4f9;
+    padding-top: 2rem;
+  }
+  
+  .menu-item {
+    width: 100%;
+  }
+  
+  .menu-item:hover .icon {
+    transform: scale(1.2);
+  }
+  
+  .menu-item:hover span {
+    font-weight: bold;
+  }
+  
+  .menu-item div {
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .menu-item div:hover {
+    background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    color: white;
+  }
+  
+  .icon {
+    color: #6a11cb;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .menu-item span {
+    color: #333;
+    transition: font-weight 0.3s ease, color 0.3s ease;
+  }
+  
+  .menu-item:hover .icon {
+    color: white;
+  }
+  
+  /* Mobile & Medium Screen Drawer Styles */
+  @media (max-width: 800px) {
+    .drawer-container {
+      width: 75vw;
+    }
+  }
+  
+  @media (max-width: 1200px) {
+    .drawer-container {
+      width: 50vw;
+    }
+  }
+  
+  /* Desktop Drawer Styles */
+  @media (min-width: 1200px) {
+    .drawer-container {
+      width: 20vw;
+    }
+  }
+  
+  /* Drawer Styles */
+  .MuiDrawer-paper {
+    position: sticky;
+    background-color: #fff;
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 3px 0 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .divider {
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 0 1.5rem;
+  }
+  
+  /* Custom Scrollbar for Navigation */
+  .drawer-container {
+    scrollbar-width: thin;
+    scrollbar-color: #6a11cb #e0e0e0;
+  }
+  
+  .drawer-container::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .drawer-container::-webkit-scrollbar-thumb {
+    background-color: #6a11cb;
+    border-radius: 10px;
+  }
+  
+  /* Add subtle gradient to the icons */
+  .icon {
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  

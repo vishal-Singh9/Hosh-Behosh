@@ -43,7 +43,9 @@ function HomePage({token}) {
                 key={restaurant.restaurantId}
                 restaurant={restaurant}
               />
+              
             );
+            
           })}
         </div>
       </section>

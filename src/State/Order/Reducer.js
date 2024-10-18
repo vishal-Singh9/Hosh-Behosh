@@ -20,7 +20,6 @@ export const orderReducer = (state = initialState,{type,payload}) => {
 
             }
         case GET_USERS_ORDERS_SUCCESS:
-                console.log("payload", payload)
             return {
                 ...state,
                 loading: false,

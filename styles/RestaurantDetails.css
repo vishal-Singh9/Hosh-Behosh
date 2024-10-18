@@ -1,0 +1,202 @@
+/* Global Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+  }
+  
+  h1, h3, h6, p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Section styling */
+  .section {
+    margin-bottom: 2rem;
+  }
+  
+  h1 {
+    font-size: 3rem;
+    color: #ff6363;
+    font-weight: 700;
+  }
+  
+  p {
+    color: #6b7280;
+    font-size: 1rem;
+  }
+  
+  .banner h3 {
+    font-size: 1rem;
+    color: #ff6363;
+    font-weight: 500;
+  }
+  
+  .banner img {
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .banner img:hover {
+    transform: scale(1.05);
+  }
+  
+  .food-category-title {
+    font-size: 1.25rem;
+    color: #4a5568;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+  }
+  
+  .icon {
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    color: #ff6363;
+  }
+  
+  .icon svg {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+  }
+  
+  /* Filter Box */
+  .filter {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .filter .box {
+    padding: 1rem;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .filter .box:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Food Type and Category Radio Buttons */
+  .MuiRadio-root {
+    color: #ff6363 !important;
+  }
+  
+  .MuiFormControlLabel-label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .MuiTypography-h6 {
+    color: #ff6363;
+    font-weight: 600;
+  }
+  
+  .filter .MuiDivider-root {
+    margin: 2rem 0;
+  }
+  
+  .filter .box {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+  }
+  
+  .filter .MuiRadio-root:hover {
+    background-color: rgba(255, 99, 99, 0.1);
+    border-radius: 50%;
+  }
+  
+  .MuiFormControl-root {
+    display: block;
+    margin: 10px 0;
+  }
+  
+  /* Menu Cards */
+  .menu-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .menu-card:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+  }
+  
+  .menu-card img {
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+  }
+  
+  .menu-card img:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Buttons */
+  button {
+    background-color: #ff6363;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #ff4d4d;
+  }
+  
+  /* Restaurant Details */
+  .restaurant-details {
+    padding: 2rem 1rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+  }
+  
+  .restaurant-details h1 {
+    font-size: 2.5rem;
+    color: #ff6363;
+    font-weight: 700;
+  }
+  
+  .restaurant-details p {
+    font-size: 1.125rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+  }
+  
+  .restaurant-details .icon {
+    font-size: 1.125rem;
+    color: #ff6363;
+    display: flex;
+    align-items: center;
+  }
+  
+  .restaurant-details .icon svg {
+    margin-right: 0.5rem;
+  }
+  
+  .divider {
+    margin: 1.5rem 0;
+  }
+  
+  /* Responsive Styling */
+  @media (min-width: 768px) {
+    .restaurant-details h1 {
+      font-size: 3rem;
+    }
+  
+    .restaurant-details p {
+      font-size: 1.25rem;
+    }
+  }
+  
