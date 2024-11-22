@@ -9,6 +9,8 @@ function HomePage({token}) {
   const dispatch = useDispatch();
   const { restaurant } = useSelector((store) => store);
 
+  
+
   useEffect(() => {
     dispatch(getAllRestaurantsAction(token));
   }, [dispatch]);
@@ -37,7 +39,7 @@ function HomePage({token}) {
           Order From Our HandPicked Favourites
         </h1>
         <div className="flex flex-wrap items-center justify-center  gap-4">
-          {restaurant.restaurants.map((restaurant) => {
+          {restaurant?.restaurants?.map((restaurant) => {
             return (
               <RestaurantCard
                 key={restaurant.restaurantId}

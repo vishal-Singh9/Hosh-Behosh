@@ -13,13 +13,14 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../State/Cart/Action";
 import "/styles/MenuCard.css"
+import { toast } from "react-toastify";
+import { findCart } from "../State/Cart/Action";
 
 function MenuCard({ item, restaurantId }) {
   const [selectedIngredients, setSelectedIngredients] = React.useState([]);
   const dispatch = useDispatch();
 
   const handleCheckboxChange = (itemName) => {
-    console.log("itemName", itemName);
     if (selectedIngredients.includes(itemName)) {
       setSelectedIngredients(
         selectedIngredients.filter((item) => item !== itemName)
@@ -31,7 +32,7 @@ function MenuCard({ item, restaurantId }) {
 
   const handleAddItemToCart = (e) => {
     e.preventDefault();
-    console.log("selectedIngredients", selectedIngredients);
+
     const reqData = {
       token: localStorage.getItem("token"),
       foodId: item.foodId,
@@ -39,7 +40,8 @@ function MenuCard({ item, restaurantId }) {
       ingredients: selectedIngredients,
     };
     dispatch(addItemToCart(reqData, localStorage.getItem("token")));
-    console.log("reqData", reqData);
+    toast.success("Item added to cart!");
+
   };
   return (
     <div>

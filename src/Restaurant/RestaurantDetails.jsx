@@ -67,20 +67,18 @@ function RestaurantDetails() {
     );
   }, [selectedCategory,foodType,id ,token]);
 
-  const images = restaurant?.restaurant?.images || []; // Default to an empty array if images don't exist
+  const images = restaurant?.restaurant?.images || []; 
 
   return (
     <div className="px-5 lg:px-20 ">
       <section>
-        <h3 className="text-gray-500 py-2 mt-10">
-          Home/India/Indian fast food/3
-        </h3>
+      
         <div>
       <Grid container spacing={2}>
         {images.slice(0, 3).map((image, index) => (
           <Grid item xs={12} lg={index === 0 ? 12 : 6} key={index}>
             <img
-              className="w-full h-[40vh] object-cover"
+              className="w-full h-[40vh] object-cover mt-5"
               src={image}
               alt={`Image ${index + 1} not found`}
             />

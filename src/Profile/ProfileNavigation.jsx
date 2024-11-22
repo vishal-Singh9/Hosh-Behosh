@@ -10,7 +10,10 @@ import { Divider, Drawer, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../State/Authentication/Action";
-import "/Users/indianic/Desktop/Swimmy/styles/ProfileNavigation.css"
+import { toast } from "react-toastify"; // Import toast
+import "react-toastify/dist/ReactToastify.css";
+import "/Users/indianic/Desktop/Swimmy/styles/ProfileNavigation.css";
+
 // Menu items with icons
 const menu = [
   { title: "Orders", icon: <ShoppingBagIcon /> },
@@ -24,8 +27,8 @@ const menu = [
 
 // Profile Navigation Component
 const ProfileNavigation = ({ open, handleClose }) => {
-  const isSmallScreen = useMediaQuery("(max-width: 800px)"); // Media query to detect small screens
-  const isMediumScreen = useMediaQuery("(max-width: 1200px)"); // Media query to detect medium screens
+  const isSmallScreen = useMediaQuery("(max-width: 800px)");
+  const isMediumScreen = useMediaQuery("(max-width: 1200px)");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -33,10 +36,12 @@ const ProfileNavigation = ({ open, handleClose }) => {
   const handleNavigate = (item) => {
     if (item.title === "Logout") {
       dispatch(logout());
+      toast.success("Successfully logged out.");
       navigate("/");
     } else if (item.title === "Home") {
       navigate("/");
     } else {
+      toast.info(`Navigating to ${item.title}`);
       navigate(`/my-profile/${item.title.toLowerCase()}`);
     }
   };
@@ -44,7 +49,7 @@ const ProfileNavigation = ({ open, handleClose }) => {
   return (
     <div>
       <Drawer
-        variant={isSmallScreen ? "temporary" : "permanent"} // Conditional drawer type for mobile vs desktop
+        variant={isSmallScreen ? "temporary" : "permanent"}
         anchor="left"
         open={open}
         onClose={handleClose}
@@ -57,7 +62,11 @@ const ProfileNavigation = ({ open, handleClose }) => {
       >
         <div
           className={`drawer-container flex flex-col justify-center text-lg pt-10 gap-4 md:gap-6 lg:gap-8 ${
-            isSmallScreen ? "w-[75vw]" : isMediumScreen ? "w-[50vw]" : "w-[20vw]"
+            isSmallScreen
+              ? "w-[75vw]"
+              : isMediumScreen
+              ? "w-[50vw]"
+              : "w-[20vw]"
           } h-[100vh]`}
         >
           {menu.map((item, i) => (

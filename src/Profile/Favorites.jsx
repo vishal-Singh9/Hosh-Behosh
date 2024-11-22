@@ -12,9 +12,9 @@ const Favorites = () => {
       
          
         {auth.favorites.map((restaurant) => (
+          console.log("restaurant11",restaurant),
           <RestaurantCard key={restaurant.restaurantId} restaurant={restaurant} />
         ))}
-        {console.log("auth favorites", auth.favorites)}
       </div>
     </div>
   );

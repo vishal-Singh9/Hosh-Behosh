@@ -1,0 +1,66 @@
+/* CheckoutPage.module.css */
+.checkoutContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-top: 1rem;
+  }
+  
+  .title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  
+  .orderSummary {
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .card {
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cardMedia {
+    height: 140px;
+    object-fit: cover;
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .cardContent {
+    padding: 1rem;
+  }
+  
+  .totalPrice {
+    font-weight: bold;
+    margin-top: 1rem;
+  }
+  
+  .deliveryForm {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  
+  .deliveryForm input {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .checkoutButton {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #3f51b5;
+    color: #fff;
+  }
+  
+  .checkoutButton:hover {
+    background-color: #303f9f;
+  }
+  

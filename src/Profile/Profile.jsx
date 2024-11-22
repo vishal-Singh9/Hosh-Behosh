@@ -26,7 +26,7 @@ useEffect(() => {
           <Route path="/notifications" element={<Notification />} />
           <Route path="/" element={<UserProfile />} />
           <Route path="/orders" element={<Orders />} />
-          <Route path="/address" element={<Address />} />
+          <Route path="/addresses" element={<Address />} />
           <Route path="/events" element={<Events />} />
           <Route path="/favorites" element={<Favorites/>} />
         </Routes>

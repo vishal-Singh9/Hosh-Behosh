@@ -3,3 +3,57 @@
 @tailwind utilities;
 
 /* Navbar Styles */
+/* Custom CSS (optional) */
+@media (max-width: 640px) {
+    .restaurant-card-image {
+      height: 8rem; /* Smaller height for mobile screens */
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .restaurant-card-image {
+      height: 12rem; /* Slightly larger height for tablets */
+    }
+  }
+  
+  /* Selected Address Card Styling */
+.selected-address-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background-color: #f9fafa;
+  border: 1px solid #dde8f5;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.selected-address-card:hover {
+  background-color: #d4e1ee;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.selected-address-card h6 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.selected-address-card p {
+  font-size: 0.9rem;
+  color: #4a5568;
+  margin: 0;
+  line-height: 1.5;
+}
+
+
+@media (max-width: 768px) {
+  .selected-address-card {
+    width: 100%;
+    padding: 15px;
+  }
+}

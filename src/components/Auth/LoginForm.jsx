@@ -1,9 +1,11 @@
+import React from "react";
 import { Button, TextField, Typography, Box } from "@mui/material";
 import { Formik, Form, Field } from "formik";
-import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LoginUser } from "../../State/Authentication/Action";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -15,55 +17,80 @@ const LoginForm = () => {
   };
 
   const handleSubmit = (values) => {
-    dispatch(LoginUser({ userData: values, navigate }));
+    dispatch(LoginUser({ userData: values, navigate }))
+      .then((response) => {
+        toast.success("Login successful!", {
+          position: "top-right",
+          autoClose: 5000,
+        });
+      })
+      .catch((error) => {
+        toast.error("Login failed. Please check your credentials.", {
+          position: "top-right",
+          autoClose: 5000,
+        });
+      });
   };
+
+ 
 
   const handleRegisterClick = () => {
     navigate("/account/register");
   };
 
   return (
-    <Box sx={{ maxWidth: 400, mx: "auto", mt: 4 }}>
-      <Typography variant="h5" align="center" color="textPrimary" gutterBottom>
-        Login
-      </Typography>
-      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        {() => (
-          <Form>
-            <Field
-              as={TextField}
-              name="email"
-              label="Email"
-              fullWidth
-              variant="outlined"
-              margin="normal"
-            />
-            <Field
-              as={TextField}
-              name="password"
-              label="Password"
-              type="password"
-              fullWidth
-              variant="outlined"
-              margin="normal"
-            />
-            <Button
-              sx={{ mt: 2, py: 1 }}
-              fullWidth
-              type="submit"
-              variant="contained"
-            >
-           Login
-            </Button>
-          </Form>
-        )}
-      </Formik>
+    <>
+      <Box sx={{ maxWidth: 400, mx: "auto", mt: 4 }}>
 
-      <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-        Don't have an account?{" "}
-        <Button onClick={handleRegisterClick}>Register</Button>
-      </Typography>
-    </Box>
+        <Typography
+          variant="h5"
+          align="center"
+          color="textPrimary"
+          gutterBottom
+        >
+          Login
+        </Typography>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+          {() => (
+            <Form>
+              <Field
+                as={TextField}
+                name="email"
+                label="Email"
+                fullWidth
+                variant="outlined"
+                margin="normal"
+              />
+              <Field
+                as={TextField}
+                name="password"
+                label="Password"
+                type="password"
+                fullWidth
+                variant="outlined"
+                margin="normal"
+              />
+              <Button
+                sx={{ mt: 2, py: 1 }}
+                fullWidth
+                type="submit"
+                variant="contained"
+              >
+                Login
+              </Button>
+            </Form>
+          )}
+        </Formik>
+
+        <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+          Don't have an account?{" "}
+          <Button onClick={handleRegisterClick}>Register</Button>
+        </Typography>
+
+        {/* Button to test if toast notifications are working */}
+     
+      </Box>
+    </>
   );
 };
 

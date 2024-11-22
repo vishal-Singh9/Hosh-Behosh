@@ -7,7 +7,6 @@ const initialState = {
     loading: false,
     error: null
 }
-
 const cartReducer = (state = initialState, action) => {
     switch (
     action.type
@@ -19,38 +18,57 @@ const cartReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
+
             }
         case actionTypes.FIND_CART_SUCCESS:
-        case actionTypes.CLEAR_CART_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 cart: action.payload,
                 cartItems: action.payload.items,
             }
+
+            case actionTypes.CLEAR_CART_SUCCESS:
+                return {
+                    initialState
+
+                }
         case actionTypes.ADD_TO_CART_SUCCESS:
+            console.log("action", action.payload.cartItems);
             return {
                 ...state,
                 loading: false,
                 cartItems: [...state.cartItems, action.payload],
+
             };
         case actionTypes.UPDATE_CART_ITEM_SUCCESS:
+            const updatedCartItems = state.cartItems.map((item) =>
+                item.cartItemId === action.payload.cartItemId
+                    ? { ...item, quantity: action.payload.quantity }
+                    : item
+            );
+
+
+            const newTotal = updatedCartItems.reduce(
+                (acc, item) => acc + item.food.price * item.quantity,
+                0
+            )
             return {
                 ...state,
                 loading: false,
-                cartItems: state.cartItems.map((item) =>
-                    item.cartItemId === action.payload.cartItemId
-                        ? { ...item, ...action.payload }
-                        : item
-                ),
+                cartItems: updatedCartItems,
+                total: newTotal,
+
+
             };
+
         case actionTypes.REMOVE_CART_ITEM_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 cartItems: state.cartItems.filter((item) => {
-                    return item._id !== action.payload
+                    return item.cartItemId !== action.payload.cartItemId
                 })
             };
         case actionTypes.FIND_CART_FAILURE:

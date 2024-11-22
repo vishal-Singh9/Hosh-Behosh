@@ -9,9 +9,8 @@ import {
 } from "./ActionTypes";
 
 
-export const createOrder = (reqData) => {
-    const {token,deliveryAddress,restaurantId} = reqData
-    console.log("reqData", reqData, "token", token)
+export const createOrder = (token,deliveryAddress,restaurantId) => {
+   
     return async (dispatch) => {
         dispatch({ type: CREATE_ORDER_REQUEST })
         try {

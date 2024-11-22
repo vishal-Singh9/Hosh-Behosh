@@ -8,12 +8,12 @@ import {
 } from "@mui/material";
 import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import "/Users/indianic/Desktop/Swimmy/styles/EventCard.css"
+import "/Users/indianic/Desktop/Swimmy/styles/EventCard.css";
 
-const EventCard = () => {
+const EventCard = ({ restaurantId, onClick }) => {
   return (
     <div>
-      <Card className="event-card" sx={{ maxWidth: 345 }}>
+      <Card className="event-card" sx={{ maxWidth: 345 }} onClick={onClick}>
         <CardMedia
           className="event-card-media"
           sx={{
