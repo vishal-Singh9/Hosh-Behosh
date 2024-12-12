@@ -20,14 +20,14 @@ const LoginForm = () => {
     dispatch(LoginUser({ userData: values, navigate }))
       .then((response) => {
         toast.success("Login successful!", {
-          position: "top-right",
-          autoClose: 5000,
+          position: "top-left",
+          autoClose: 1000,
         });
       })
       .catch((error) => {
         toast.error("Login failed. Please check your credentials.", {
-          position: "top-right",
-          autoClose: 5000,
+          position: "top-left",
+          autoClose: 1000,
         });
       });
   };
@@ -87,7 +87,6 @@ const LoginForm = () => {
           <Button onClick={handleRegisterClick}>Register</Button>
         </Typography>
 
-        {/* Button to test if toast notifications are working */}
      
       </Box>
     </>

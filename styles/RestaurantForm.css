@@ -1,0 +1,131 @@
+/* General form container styling */
+form {
+    background: linear-gradient(145deg, #f3f3f3, #ffffff);
+    box-shadow: 8px 8px 15px #d1d1d1, -8px -8px 15px #ffffff;
+    border-radius: 20px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Title styling */
+  h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(45deg, #ff6f61, #ff9e80);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: bold;
+  }
+  
+  /* Input fields */
+  .MuiTextField-root {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    box-shadow: inset 4px 4px 8px #d1d1d1, inset -4px -4px 8px #ffffff;
+  }
+  
+  .MuiInputBase-input {
+    padding: 12px;
+  }
+  
+  .MuiInputLabel-root {
+    font-weight: bold;
+    color: #666;
+  }
+  
+  /* Upload button */
+  label {
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  label span {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #f3f3f3, #e6e6e6);
+    border: 2px dashed #ccc;
+    border-radius: 50%;
+    box-shadow: 4px 4px 10px #d1d1d1, -4px -4px 10px #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  label span:hover {
+    transform: scale(1.1);
+    box-shadow: 6px 6px 12px #ccc, -6px -6px 12px #ffffff;
+  }
+  
+  /* Uploaded images */
+  img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .relative {
+    position: relative;
+  }
+  
+  .MuiIconButton-root {
+    background: #ffffff;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .MuiIconButton-root:hover {
+    transform: scale(1.1);
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Submit button */
+  button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(145deg, #ff6f61, #ff9e80);
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2), -4px -4px 8px rgba(255, 255, 255, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  button:hover {
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.2), -6px -6px 12px rgba(255, 255, 255, 0.5);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    form {
+      padding: 1.5rem;
+    }
+  
+    h1 {
+      font-size: 2rem;
+    }
+  
+    label span {
+      width: 80px;
+      height: 80px;
+    }
+  
+    img {
+      width: 80px;
+      height: 80px;
+    }
+  }
+  

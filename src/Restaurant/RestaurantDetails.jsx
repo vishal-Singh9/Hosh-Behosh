@@ -14,11 +14,14 @@ import MenuCard from "./MenuCard";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getAllRestaurantsAction,
   getRestaurantById,
   getRestaurantsCategories,
 } from "../State/Restaurant/Action";
 import { getMenuItemsByRestaurantId } from "../State/Menu/Action";
-import "/Users/indianic/Desktop/Swimmy/styles/RestaurantDetails.css"
+import "/Users/indianic/Desktop/Swimmy/styles/RestaurantDetails.css";
+import { toast } from "react-toastify";
+
 const foodTypes = [
   { label: "All", value: "all" },
   { label: "Veg", value: "veg" },
@@ -27,37 +30,54 @@ const foodTypes = [
 ];
 
 function RestaurantDetails() {
-
   const [foodType, setFoodType] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const handleFilter = (event) => {
     setFoodType(event.target.value);
-    
   };
 
-  const handleFilterCategory = (event,value) => {
-    const selectedCategory = event.target.value;  
+  const handleFilterCategory = (event, value) => {
+    const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
     setSelectedCategory(value);
-    console.log("Selected Category:", selectedCategory);  
   };
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
   const { restaurant, menu } = useSelector((store) => store);
+  console.log("menu", menu, "resatuarnt",restaurant);
   const { id } = useParams();
+  const cleanedId = id?.replace(/[^\d]/g, ""); // Removes any non-numeric characters
+  console.log("Cleaned ID:", cleanedId);
+  
+  const restaurantId = cleanedId
+   
+
 
   useEffect(() => {
-    dispatch(getRestaurantById(id, token));
-    dispatch(getRestaurantsCategories(id, token));
-  }, [dispatch, id, token]);
+    if (!token) {
+      toast.error("Please login first");
+      return; // Exit the effect if no token
+    }
+
+    dispatch(getRestaurantById({ restaurantId, token }));
+    dispatch(getAllRestaurantsAction())
+      .then(() => {
+        // Additional logic if needed after restaurants are fetched
+      })
+      .catch((error) => {
+        console.error("Error fetching restaurants:", error);
+      });
+
+    dispatch(getRestaurantsCategories({ token, restaurantId }));
+  }, [dispatch, restaurantId, token]);
 
   useEffect(() => {
     dispatch(
       getMenuItemsByRestaurantId({
-        restaurantId: id,
+        restaurantId: restaurantId,
         token,
         vegetarian: foodType === "veg",
         nonveg: foodType === "non-veg",
@@ -65,27 +85,28 @@ function RestaurantDetails() {
         foodCategory: selectedCategory,
       })
     );
-  }, [selectedCategory,foodType,id ,token]);
+  }, [selectedCategory, foodType, restaurantId, token]);
 
-  const images = restaurant?.restaurant?.images || []; 
+  const images =
+    restaurant?.restaurant?.images || [];
 
   return (
     <div className="px-5 lg:px-20 ">
       <section>
-      
         <div>
-      <Grid container spacing={2}>
-        {images.slice(0, 3).map((image, index) => (
-          <Grid item xs={12} lg={index === 0 ? 12 : 6} key={index}>
-            <img
-              className="w-full h-[40vh] object-cover mt-5"
-              src={image}
-              alt={`Image ${index + 1} not found`}
-            />
+          <Grid container spacing={2}>
+            {images.slice(0, 3).map((image, index) => (
+              <Grid item xs={12} lg={index === 0 ? 12 : 6} key={index}>
+                <img
+                  className="w-full h-[40vh] object-cover mt-5"
+                  src={image}
+                  alt={`Image ${index + 1} not found`}
+                />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
-    </div>
+        </div>
+
         <div className="pt-3 pb-5 ">
           <h1 className="text-4xl font-semibold">
             {restaurant?.restaurant?.name}
@@ -96,11 +117,17 @@ function RestaurantDetails() {
           <div className="space-y-3 mt-3">
             <p className="text-gray-500 flex items-center gap-3">
               <LocationOnIcon />
-              <span>{restaurant?.restaurant?.address.street}</span>
+              <span>
+                {restaurant?.restaurant?.address?.street
+                }
+              </span>
             </p>
             <p className="text-gray-500 flex items-center gap-3">
               <CalendarMonthIcon />
-              <span>9:00 AM - 9:00 PM (Mon-Sun)</span>
+              <span>
+                {restaurant?.restaurant?.openingHours
+}
+              </span>
             </p>
           </div>
         </div>
@@ -144,6 +171,7 @@ function RestaurantDetails() {
                   value={selectedCategory}
                 >
                   {restaurant?.categories.map((item) => (
+                  
                     <FormControlLabel
                       key={item.categoryId}
                       value={item.name}
@@ -159,7 +187,13 @@ function RestaurantDetails() {
 
         <div className="space-y-5 lg:w-[80%] lg:pl-10">
           {menu?.menuItems?.map((item) => {
-            return <MenuCard key={item} item={item} restaurantId={restaurant.restaurantId} />;
+            return (
+              <MenuCard
+                key={item}
+                item={item}
+                restaurantId={item.restaurantId}
+              />
+            );
           })}
         </div>
       </section>

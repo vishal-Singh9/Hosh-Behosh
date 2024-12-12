@@ -23,24 +23,23 @@ export const registerUser = (reqData) => async (dispatch) => {
         const { data } = await axios.post(`${API_URL}/auth/signup`, reqData.userData);
         if (data.token) localStorage.setItem("token", data.token);
         if (data.role === "ROLE_RESTAURANT_OWNER") {
-            reqData.navigate("/admin/restaurant")
+            reqData.navigate("/admin/restaurants")
         }
         else {
             reqData.navigate("/")
         }
-        dispatch({ type: REGISTER_SUCCESS, payload: data})
+        dispatch({ type: REGISTER_SUCCESS, payload: data })
         console.log("REGISTER SUCCESSFULLY");
     }
     catch (error) {
         dispatch({ type: REGISTER_FAILURE, payload: error })
-        console.log("error",error);
+        console.log("error", error);
     }
 }
 
 
 
 export const LoginUser = (reqData) => async (dispatch) => {
-console.log("reqData", reqData)
 
 
     dispatch({ type: LOGIN_REQUEST })
@@ -49,13 +48,13 @@ console.log("reqData", reqData)
         if (data.token) localStorage.setItem("token", data.token);
 
         if (data.role === "ROLE_RESTAURANT_OWNER") {
-            reqData.navigate("/admin/restaurant")
+            reqData.navigate("/admin/restaurants")
         }
         else {
             reqData.navigate("/")
         }
-        dispatch({ type: LOGIN_SUCCESS, payload: data.token })
-  }
+        dispatch({ type: LOGIN_SUCCESS, payload: data })
+    }
     catch (error) {
         dispatch({ type: LOGIN_FAILURE, payload: error })
         console.log(error);
@@ -75,37 +74,38 @@ export const getUser = (token) => async (dispatch) => {
 
         localStorage.setItem("user", JSON.stringify(data));
 
-        dispatch({ type:GET_USER_SUCCESS, payload: data})
+        dispatch({ type: GET_USER_SUCCESS, payload: data })
     }
     catch (error) {
-        dispatch({ type: GET_USER_FAILURE ,payload: error})
-        console.log("error",error);
+        dispatch({ type: GET_USER_FAILURE, payload: error })
+        console.log("error", error);
     }
 }
 
 
-export const addTofavorite = ({restaurantId, token }) => async (dispatch) => {
-dispatch({ type: ADD_TO_FAVORITES_REQUEST })
+export const addTofavorite = ({ restaurantId, token }) => async (dispatch) => {
+    dispatch({ type: ADD_TO_FAVORITES_REQUEST })
     try {
         const { data } = await api.put(`/api/restaurant/add-favorites?restaurantId=${restaurantId}`, {}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
-            
+
         });
 
         dispatch({ type: ADD_TO_FAVORITES_SUCCESS, payload: data })
     }
     catch (error) {
-        dispatch({ type: ADD_TO_FAVORITES_FAILURE})
-        console.log("remove",error);
+        dispatch({ type: ADD_TO_FAVORITES_FAILURE })
+        console.log("remove", error);
     }
 }
 
 export const logout = () => async (dispatch) => {
 
-    dispatch({ type: LOGOUT
-     })
+    dispatch({
+        type: LOGOUT
+    })
     try {
         localStorage.clear();
 

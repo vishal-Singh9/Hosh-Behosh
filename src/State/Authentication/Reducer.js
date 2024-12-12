@@ -11,6 +11,7 @@ const initialState = {
 
 }
 const authReducer = (state = initialState, action) => {
+
     switch (
     action.type
     ) {
@@ -23,25 +24,34 @@ const authReducer = (state = initialState, action) => {
                 isLoading: true, error: null, success: null
             }
         case REGISTER_SUCCESS:
-        case LOGIN_SUCCESS:
+       
             return {
                 ...state,
                 token: action.payload,
                 isLoading: false,
                 success: "Registered Successfully"
             }
-
+            case LOGIN_SUCCESS:
+            return {
+                ...state,
+                user: action.payload,
+                token: action.payload.token,
+                isLoading: false,
+                favorites: action.payload.favorites,
+            success: "Logged In Successfully"
+            }
         case GET_USER_SUCCESS:
             return {
                 ...state,
                 user: action.payload,
-
+                token:localStorage.getItem("token"),
                 isLoading: false,
-                favorites: action.payload.favorites
+                favorites: action.payload.favorites,
+                success: "User Fetched Successfully"
             }
 
         case ADD_TO_FAVORITES_SUCCESS:
-          
+
             return {
                 ...state,
                 favorites: isPresentInFavorites(state.favorites, action.payload)
@@ -49,7 +59,7 @@ const authReducer = (state = initialState, action) => {
 
                 isLoading: false,
                 success: "Added to Favorites",
-                
+
                 error: null
 
             }

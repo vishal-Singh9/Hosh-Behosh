@@ -3,12 +3,14 @@ import * as actionTypes from "./ActionType"
 const initialState = {
     restaurants: [],
     userRestaurants: null,
-    restaurant: null,
+    user: null,
+ 
     events: [],
     restaurantsEvents: [],
     categories: [],
     error: null,
-    loading: false
+    loading: false,
+    token: null
 }
 
 
@@ -21,6 +23,7 @@ const restaurantReducer = (state = initialState, action) => {
         case actionTypes.UPDATE_RESTAURANT_REQUEST:
         case actionTypes.DELETE_RESTAURANT_REQUEST:
         case actionTypes.GET_RESTAURANT_BY_ID_REQUEST:
+        case actionTypes.GET_RESTAURANT_BY_USER_ID_REQUEST:
         case actionTypes.CREATE_CATEGORY_REQUEST:
         case actionTypes.GET_RESTAURANTS_CATEGORY_REQUEST:
             return {
@@ -33,7 +36,8 @@ const restaurantReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                error: null
+                error: null,
+                userRestaurants: action.payload
             };
         case actionTypes.GET_ALL_RESTAURANTS_SUCCESS:
             return {
@@ -42,13 +46,33 @@ const restaurantReducer = (state = initialState, action) => {
                 error: null,
                 restaurants: action.payload
             };
-        case actionTypes.GET_RESTAURANT_BY_USER_ID_SUCCESS:
-        case actionTypes.UPDATE_RESTAURANT_STATUS_SUCCESS:
-        case actionTypes.UPDATE_RESTAURANT_SUCCESS:
+
+        case actionTypes.GET_RESTAURANT_BY_ID_SUCCESS:
+            console.log("action.payload", action.payload)
             return {
                 ...state,
                 loading: false,
-                usersRestaurant: action.payload
+                error: null,
+                restaurant: action.payload,
+            };
+
+        case actionTypes.GET_RESTAURANT_BY_USER_ID_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                user: action.payload.user,
+                userRestaurants: action.payload
+            }
+
+
+        case actionTypes.UPDATE_RESTAURANT_STATUS_SUCCESS:
+        case actionTypes.UPDATE_RESTAURANT_SUCCESS:
+            return {
+
+                ...state,
+                loading: false,
+                open: action.payload
             };
         case actionTypes.DELETE_RESTAURANT_SUCCESS:
             return {
@@ -97,7 +121,6 @@ const restaurantReducer = (state = initialState, action) => {
             };
 
         case actionTypes.CREATE_CATEGORY_SUCCESS:
-            console.log(categories,"categories")
 
             return {
                 ...state,
@@ -111,15 +134,19 @@ const restaurantReducer = (state = initialState, action) => {
                 loading: false,
                 error: null,
                 categories: action.payload,
-                
+
             };
 
-        case actionTypes.GET_RESTAURANT_BY_ID_SUCCESS:
+
+        case actionTypes.GET_RESTAURANT_BY_USER_ID_SUCCESS:
+            console.log("action.payload", action.payload)
             return {
                 ...state,
                 loading: false,
                 error: null,
-                restaurant: action.payload
+                restaurants: action.payload,
+                token: action.payload.token,
+                userRestaurants: action.payload
             };
 
 
@@ -131,10 +158,20 @@ const restaurantReducer = (state = initialState, action) => {
         case actionTypes.CREATE_CATEGORY_FAILURE:
         case actionTypes.CREATE_EVENTS_FAILURE:
         case actionTypes.GET_RESTAURANTS_CATEGORY_FAILURE:
+        case actionTypes.GET_RESTAURANT_BY_USER_ID_FAILURE:
             return {
                 ...state,
                 loading: false,
                 error: action.payload
+            };
+
+        case actionTypes.DELETE_RESTAURANTS_CATEGORY:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                categories: state.categories.filter(
+                    category => category.categoryId !== action.payload),
             };
         default:
             return state;

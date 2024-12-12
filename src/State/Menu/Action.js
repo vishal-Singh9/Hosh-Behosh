@@ -6,6 +6,9 @@ import {
     DELETE_MENU_ITEM_FAILURE,
     DELETE_MENU_ITEM_REQUEST,
     DELETE_MENU_ITEM_SUCCESS,
+    GET_MENU_ITEM_FAILURE,
+    GET_MENU_ITEM_REQUEST,
+    GET_MENU_ITEM_SUCCESS,
     GET_MENU_ITEMS_BY_RESTAURANTS_ID_FAILURE,
     GET_MENU_ITEMS_BY_RESTAURANTS_ID_REQUEST,
     GET_MENU_ITEMS_BY_RESTAURANTS_ID_SUCCESS,
@@ -18,24 +21,42 @@ import {
 } from "./ActionType";
 
 
-export const createMenuItem = ({ menu, token }) => {
+export const createMenuItem = ({ reqData, token }) => {
 
     return async (dispatch) => {
         dispatch({ type: CREATE_MENU_ITEM_REQUEST })
         try {
-            const res = await api.post(`/api/admin/menu`, menu, {
+            const {data} = await api.post(`/api/admin/food/create`, reqData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log("create menu item", res.data);
-            dispatch({ type: CREATE_MENU_ITEM_SUCCESS, payload: res.data })
+            console.log("create menu item", data);
+            dispatch({ type: CREATE_MENU_ITEM_SUCCESS, payload: data })
         } catch (error) {
             console.log(error);
             dispatch({ type: CREATE_MENU_ITEM_FAILURE, payload: error, })
         }
     }
 }
+
+export const getMenuItems = ({restaurantId, token}) => {
+    return async (dispatch) => {
+        dispatch({ type: GET_MENU_ITEM_REQUEST });
+        try {
+            const { data } = await api.get(`/api/admin/food/restaurant?restaurantId=${restaurantId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            dispatch({ type: GET_MENU_ITEM_SUCCESS, payload: data })
+        } catch (error) {
+            console.log(error);
+            dispatch({ type: GET_MENU_ITEM_FAILURE, payload: error })
+        }
+    }
+}
+
 
 export const getMenuItemsByRestaurantId = ({ token,restaurantId, vegetarian, nonveg, seasonal, foodCategory }) => {
     return async (dispatch) => {
@@ -48,6 +69,7 @@ export const getMenuItemsByRestaurantId = ({ token,restaurantId, vegetarian, non
                 }
             })
             dispatch({ type: GET_MENU_ITEMS_BY_RESTAURANTS_ID_SUCCESS, payload: data })
+            console.log("get menu item", data);
         } catch (error) {
             console.log(error);
             dispatch({ type: GET_MENU_ITEMS_BY_RESTAURANTS_ID_FAILURE, payload: error })
@@ -56,16 +78,17 @@ export const getMenuItemsByRestaurantId = ({ token,restaurantId, vegetarian, non
 }
 
 export const searchMenuItem = ({ keyword, token }) => {
+    console.log("keyword", keyword,token)
 
     return async (dispatch) => {
         dispatch({ type: SEARCH_MENU_ITEM_REQUEST });
         try {
-            const { data } = await api.get(`/api/food/search?name=${keyword}`, {
+            const { data } = await api.get(`/api/food/search?keyword=${keyword}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log("get menu item", res.data);
+            console.log("get menu item", data);
             dispatch({ type: SEARCH_MENU_ITEM_SUCCESS, payload: data })
         } catch (error) {
             console.log(error);
@@ -98,13 +121,13 @@ export const deleteMenuItem = ({ foodId, token }) => {
     return async (dispatch) => {
         dispatch({ type: DELETE_MENU_ITEM_REQUEST })
         try {
-            const res = await api.delete(`/api/admin/menu/${foodId}`, {
+            const {data} = await api.delete(`/api/admin/food/delete?foodId=${foodId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log("delete menu item", res.data);
-            dispatch({ type: DELETE_MENU_ITEM_SUCCESS, payload: foodId })
+            dispatch({ type: DELETE_MENU_ITEM_SUCCESS, payload: data})
+            console.log("delete menu item", data);
         } catch (error) {
             console.log(error);
             dispatch({ type: DELETE_MENU_ITEM_FAILURE, payload: error, })

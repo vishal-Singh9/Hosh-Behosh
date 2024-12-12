@@ -4,15 +4,16 @@ import MultiItemCarousel from "./MultiItemCarousel";
 import RestaurantCard from "../../Restaurant/RestaurantCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRestaurantsAction } from "../../State/Restaurant/Action";
+import { toast } from "react-toastify";
 
-function HomePage({token}) {
+function HomePage() {
   const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
   const { restaurant } = useSelector((store) => store);
-
-  
-
+// const restaurantId =restaurant?.restaurants?.restaurantId
   useEffect(() => {
-    dispatch(getAllRestaurantsAction(token));
+    dispatch(getAllRestaurantsAction())
+
   }, [dispatch]);
   return (
     <div>
@@ -39,11 +40,15 @@ function HomePage({token}) {
           Order From Our HandPicked Favourites
         </h1>
         <div className="flex flex-wrap items-center justify-center  gap-4">
-          {restaurant?.restaurants?.map((restaurant) => {
+      
+
+
+          {restaurant?.restaurants?.length > 0 &&
+          restaurant?.restaurants?.map((res,index) => {
             return (
               <RestaurantCard
-                key={restaurant.restaurantId}
-                restaurant={restaurant}
+                key={index}
+                restaurant={res}
               />
               
             );

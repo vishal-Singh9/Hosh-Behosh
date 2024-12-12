@@ -4,7 +4,7 @@ const initialState = {
     menuItems: [],
     error: null,
     loading: false,
-    search: [],
+    searchResults: [],
     message: null
 }
 
@@ -16,17 +16,25 @@ const menuItemReducer = (state = initialState, action) => {
         case actionTypes.DELETE_MENU_ITEM_REQUEST:
         case actionTypes.UPDATE_MENU_ITEM_REQUEST:
         case actionTypes.SEARCH_MENU_ITEM_REQUEST:
+            case actionTypes.GET_MENU_ITEM_REQUEST:
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
             };
-        case actionTypes.CREATE_MENU_ITEM_SUCCESS:
-            
+
+        case actionTypes.GET_MENU_ITEM_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                menuItems: [...state.menuItems, action.payload],
+                error: null,
+                menuItems: action.payload
+        }
+        case actionTypes.CREATE_MENU_ITEM_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                menuItems: action.payload,
                 message: "Food createed Successfully"
             };
         case actionTypes.GET_MENU_ITEMS_BY_RESTAURANTS_ID_SUCCESS:
@@ -41,7 +49,7 @@ const menuItemReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: null,
-                menuItems: state.menuItems.filter((item) => item._id !== action.payload)
+                menuItems: state.menuItems.filter((item) => item.foodId !== action.payload)
             };
         case actionTypes.UPDATE_MENU_ITEM_SUCCESS:
             return {
@@ -55,9 +63,10 @@ const menuItemReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: null,
-                search: action.payload
+                searchResults: action.payload
             };
         case actionTypes.CREATE_MENU_ITEM_FAILURE:
+            case actionTypes.GET_MENU_ITEM_FAILURE:
         case actionTypes.GET_MENU_ITEMS_BY_RESTAURANTS_ID_FAILURE:
         case actionTypes.DELETE_MENU_ITEM_FAILURE:
         case actionTypes.UPDATE_MENU_ITEM_FAILURE:

@@ -1,0 +1,57 @@
+.ingredient-category-container {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+  }
+  
+  .ingredient-category-card {
+    border-radius: 16px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    transform: rotateX(3deg);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .ingredient-category-card:hover {
+    transform: rotateX(0deg) translateY(-5px);
+    box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  .table-container {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .table-head {
+    background: #eceff3;
+    color: white;
+  }
+  
+  .table-head th {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .delete-button {
+    background: #ff6b6b;
+    color: white;
+    transition: background 0.3s ease;
+  }
+  
+  .delete-button:hover {
+    background: #fa5252;
+  }
+  
+  .create-button {
+    background: #51cf66;
+    color: white;
+    transition: background 0.3s ease;
+  }
+  
+  .create-button:hover {
+    background: #40c057;
+  }
+  

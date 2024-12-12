@@ -65,7 +65,6 @@ export const addItemToCart = (reqData, token, cartItemId) => {
 
 
 export const getAllCartItems = (reqData) => {
-    console.log("reqqq", reqData)
 
     return async (dispatch) => {
         dispatch({ type: GET_ALL_CART_ITEMS_REQUEST })

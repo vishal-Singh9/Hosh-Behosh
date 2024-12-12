@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from "../State/Order/Action";
 import {
   Box,
@@ -12,8 +12,10 @@ import {
 
 const CreateOrderForm = () => {
   const dispatch = useDispatch();
-
-  const [restaurantId, setRestaurantId] = useState(0);
+  const { restaurant } = useSelector((store) => store);
+  console.log("restt", restaurant);
+  const restaurantId = restaurant?.restaurants?.map((res) => res.restaurantId).join(",");
+  const token = localStorage.getItem("token");
   const [deliveryAddress, setDeliveryAddress] = useState({
     street: "",
     city: "",
@@ -37,12 +39,10 @@ const CreateOrderForm = () => {
       country: "",
     });
 
-    const orderData = {
-      restaurantId: Number(restaurantId),
-      deliveryAddress,
-    };
+   
 
-    dispatch(createOrder(orderData));
+    dispatch(createOrder(token,deliveryAddress,restaurantId))
+ 
   };
 
   return (
@@ -122,12 +122,7 @@ const CreateOrderForm = () => {
         </Grid>
       </Grid>
 
-      <Button
-        variant="contained"
-        color="primary"
-        fullWidth
-        sx={{ mt: 3 }}
-      >
+      <Button variant="contained" color="primary" fullWidth sx={{ mt: 3 }}>
         Place Order
       </Button>
     </Box>

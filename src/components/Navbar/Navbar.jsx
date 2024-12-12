@@ -4,20 +4,34 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import React from "react";
 import { Person } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { toast } from "react-toastify"; 
 import "/styles/Navbar.css";
+import { searchMenuItem } from "../../State/Menu/Action";
 
 function Navbar() {
   const { auth, cart } = useSelector((store) => store);
+  const {searchResults} = useSelector(store=>store.menu)
   const navigate = useNavigate();
+  const dispatch=useDispatch();
 
+
+  const searchHandle = async (e) => {
+    dispatch(
+      searchMenuItem({
+        keyword: e.target.value,
+        token: localStorage.getItem("token"),
+      })
+    );
+    navigate(`/search?query=${e.target.value}`);
+  };
+  
   const handleAvatarClick = () => {
     if (auth?.user?.role === "ROLE_CUSTOMER") {
       navigate("/my-profile");
     } else {
-      navigate("/admin/restaurant");
+      navigate("/admin/restaurants");
     }
   };
 
@@ -61,7 +75,7 @@ function Navbar() {
               onClick={handleAvatarClick}
               sx={{ bgcolor: "white", color: "pink" }}
             >
-              {auth.user?.fullName[0].toUpperCase()}
+              {auth?.user?.fullName?.[0].toUpperCase()}
             </Avatar>
           ) : (
             <IconButton
@@ -81,6 +95,27 @@ function Navbar() {
             </Badge>
           </IconButton>
         </div>
+        <div>
+    <input
+      className="search"
+      type="text"
+      placeholder="Search Product"
+      onChange={searchHandle}
+    />
+    {searchResults.length > 0 && (
+      <div className="search-results bg-white shadow-md absolute z-10">
+        {searchResults.map((item, index) => (
+          <div
+            key={index}
+            className="search-item px-4 py-2 cursor-pointer hover:bg-gray-200"
+            onClick={() => navigate(`/product/${item.foodId}`)}
+          >
+            {item.name}
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
       </div>
     </Box>
   );

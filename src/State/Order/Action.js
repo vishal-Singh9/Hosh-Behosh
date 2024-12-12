@@ -10,7 +10,7 @@ import {
 
 
 export const createOrder = (token,deliveryAddress,restaurantId) => {
-   
+   console.log("token",token,"deliveryAddress",deliveryAddress,"restaurantId",restaurantId)
     return async (dispatch) => {
         dispatch({ type: CREATE_ORDER_REQUEST })
         try {
@@ -28,10 +28,9 @@ export const createOrder = (token,deliveryAddress,restaurantId) => {
     }
 }
 
-export const getUsersOrders = (reqData) => {
-    const token = localStorage.getItem('token');  
+export const getUsersOrders = ({ token,userId}) => {
+    console.log( "token", token,userId)
 
-    const {userId} = reqData
     return async (dispatch) => {
         dispatch({ type: GET_USERS_ORDERS_REQUEST})
         try {

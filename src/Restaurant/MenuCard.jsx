@@ -9,14 +9,16 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import { categoriseIngredients } from "../components/utils/categoriseIngredients";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../State/Cart/Action";
 import "/styles/MenuCard.css"
 import { toast } from "react-toastify";
 import { findCart } from "../State/Cart/Action";
+import { getRestaurantById, getRestaurantsCategories } from "../State/Restaurant/Action";
 
-function MenuCard({ item, restaurantId }) {
+function MenuCard({ item }) {
+
   const [selectedIngredients, setSelectedIngredients] = React.useState([]);
   const dispatch = useDispatch();
 
@@ -43,6 +45,13 @@ function MenuCard({ item, restaurantId }) {
     toast.success("Item added to cart!");
 
   };
+  const restaurantId= item?.restaurantId;
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    dispatch(getRestaurantById({ restaurantId, token }));
+    dispatch(getRestaurantsCategories({ token, restaurantId }));
+  }, [dispatch]);
   return (
     <div>
       <Accordion

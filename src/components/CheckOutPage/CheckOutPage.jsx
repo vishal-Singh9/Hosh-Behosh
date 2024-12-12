@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Typography,
@@ -59,8 +59,10 @@ const CheckoutPage = () => {
       pinCode: address.selectedAddress?.pinCode,
       country: "India",
     };
-    const restaurantId = restaurant?.restaurant?.restaurantId;
+    const restaurantId = restaurant?.restaurant?.restaurantId
+    console.log(restaurantId)
     dispatch(createOrder(token, deliveryAddress, restaurantId));
+
     navigate("/confirmation");
     dispatch(clearCart(token));
   };

@@ -18,13 +18,11 @@ import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useDispatch, useSelector } from "react-redux";
-import { createOrder } from "../../State/Order/Action";
 import { toast } from "react-toastify";
 import PaymentIcon from "@mui/icons-material/Payment";
 
 import {
   createAddress,
-  fetchAddresses,
   selectAddress,
   userAddress,
 } from "../../State/Address/Action";
@@ -58,16 +56,18 @@ const validationSchema = Yup.object().shape({
 
 const Cart = () => {
   const [open, setOpen] = useState(false);
-  const [saveAddress, setSaveAddress] = useState(false); 
+  const [saveAddress, setSaveAddress] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
 
-  const { cart, auth, address, order } = useSelector((store) => store);
+  const { cart, auth, address, order, restaurant } = useSelector(
+    (store) => store
+  );
+
+  console.log("cart", cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  // const restaurantId= restaurant?.restaurants?.map((res) => res.restaurantId);
   const handleClose = () => setOpen(false);
-
-
 
   const handleSaveAddress = (values) => {
     const token = localStorage.getItem("token");
@@ -88,14 +88,13 @@ const Cart = () => {
           toast.error("Failed to save address");
         });
       setOpen(false);
-
     }
   };
 
   const handleSelectAddress = (address) => {
     console.log("addresseofugh", address);
     dispatch(selectAddress(address));
-  }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -105,8 +104,6 @@ const Cart = () => {
       dispatch(userAddress(token, userId));
     }
   }, [auth]);
-
-
 
   const handleBuyNow = () => {
     if (!address.selectedAddress) {
@@ -160,13 +157,18 @@ const Cart = () => {
             <br />
 
             {address.selectedAddress && (
-              <Card className="selected-address-card" onClick={() => handleSelectAddress(selectedAddress)}>
+              <Card
+                className="selected-address-card"
+                onClick={() => handleSelectAddress(selectedAddress)}
+              >
                 <Typography variant="h6" color="primary">
                   Selected Address
                 </Typography>
                 <p>
-                  {address.selectedAddress?.street}, {address.selectedAddress?.city},
-                  {address.selectedAddress?.state}, {address.selectedAddress?.pinCode}
+                  {address.selectedAddress?.street},{" "}
+                  {address.selectedAddress?.city},
+                  {address.selectedAddress?.state},{" "}
+                  {address.selectedAddress?.pinCode}
                 </p>
               </Card>
             )}
