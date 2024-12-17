@@ -52,6 +52,7 @@ function MenuCard({ item }) {
     dispatch(getRestaurantById({ restaurantId, token }));
     dispatch(getRestaurantsCategories({ token, restaurantId }));
   }, [dispatch]);
+  
   return (
     <div>
       <Accordion
@@ -67,6 +68,7 @@ function MenuCard({ item }) {
           },
         }}
       >
+      
         <AccordionSummary
           expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />}
           aria-controls="panel1-content"

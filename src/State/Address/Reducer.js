@@ -87,7 +87,6 @@ const addressReducer = (state = initialState, action) => {
             };
 
         case DELETE_ADDRESS_SUCCESS:
-            console.log("action.payload", action.payload);
             return {
                 ...state,
                 isLoading: false,

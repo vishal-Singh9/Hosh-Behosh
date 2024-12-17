@@ -31,10 +31,8 @@ export const createMenuItem = ({ reqData, token }) => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log("create menu item", data);
             dispatch({ type: CREATE_MENU_ITEM_SUCCESS, payload: data })
         } catch (error) {
-            console.log(error);
             dispatch({ type: CREATE_MENU_ITEM_FAILURE, payload: error, })
         }
     }
@@ -51,7 +49,6 @@ export const getMenuItems = ({restaurantId, token}) => {
             })
             dispatch({ type: GET_MENU_ITEM_SUCCESS, payload: data })
         } catch (error) {
-            console.log(error);
             dispatch({ type: GET_MENU_ITEM_FAILURE, payload: error })
         }
     }
@@ -69,16 +66,13 @@ export const getMenuItemsByRestaurantId = ({ token,restaurantId, vegetarian, non
                 }
             })
             dispatch({ type: GET_MENU_ITEMS_BY_RESTAURANTS_ID_SUCCESS, payload: data })
-            console.log("get menu item", data);
         } catch (error) {
-            console.log(error);
             dispatch({ type: GET_MENU_ITEMS_BY_RESTAURANTS_ID_FAILURE, payload: error })
         }
     }
 }
 
 export const searchMenuItem = ({ keyword, token }) => {
-    console.log("keyword", keyword,token)
 
     return async (dispatch) => {
         dispatch({ type: SEARCH_MENU_ITEM_REQUEST });
@@ -88,10 +82,8 @@ export const searchMenuItem = ({ keyword, token }) => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log("get menu item", data);
             dispatch({ type: SEARCH_MENU_ITEM_SUCCESS, payload: data })
         } catch (error) {
-            console.log(error);
             dispatch({ type: SEARCH_MENU_ITEM_FAILURE, payload: error })
         }
     }
@@ -108,10 +100,8 @@ export const updateMenuItem = ({ menu, token, foodId }) => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log("update menu item", res.data);
             dispatch({ type: UPDATE_MENU_ITEM_SUCCESS, payload: res.data })
         } catch (error) {
-            console.log(error);
             dispatch({ type: UPDATE_MENU_ITEM_FAILURE, payload: error, })
         }
     }
@@ -127,9 +117,7 @@ export const deleteMenuItem = ({ foodId, token }) => {
                 }
             })
             dispatch({ type: DELETE_MENU_ITEM_SUCCESS, payload: data})
-            console.log("delete menu item", data);
         } catch (error) {
-            console.log(error);
             dispatch({ type: DELETE_MENU_ITEM_FAILURE, payload: error, })
         }
     }

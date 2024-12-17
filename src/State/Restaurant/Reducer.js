@@ -4,7 +4,7 @@ const initialState = {
     restaurants: [],
     userRestaurants: null,
     user: null,
- 
+    restaurant: null,
     events: [],
     restaurantsEvents: [],
     categories: [],
@@ -48,7 +48,6 @@ const restaurantReducer = (state = initialState, action) => {
             };
 
         case actionTypes.GET_RESTAURANT_BY_ID_SUCCESS:
-            console.log("action.payload", action.payload)
             return {
                 ...state,
                 loading: false,

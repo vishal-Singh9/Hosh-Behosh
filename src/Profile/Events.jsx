@@ -14,7 +14,6 @@ const Events = (restaurantId) => {
   const navigate = useNavigate();
 
   const handleEventClick = (restaurantId) => {
-    console.log(restaurantId,"iweydftwyefg")
     navigate(`/restaurant/${restaurantId}`);
   };
 

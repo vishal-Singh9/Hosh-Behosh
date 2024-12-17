@@ -33,7 +33,6 @@ export const findCart = (token) => {
             })
             dispatch({ type: FIND_CART_SUCCESS, payload: response.data })
         } catch (error) {
-            console.log(error);
             dispatch({ type: FIND_CART_FAILURE, payload: error, })
         }
     }
@@ -57,7 +56,6 @@ export const addItemToCart = (reqData, token, cartItemId) => {
                 dispatch(findCart(token));
             }
         } catch (error) {
-            console.log(error);
             dispatch({ type: ADD_TO_CART_FAILURE, payload: error, })
         }
     }
@@ -74,10 +72,8 @@ export const getAllCartItems = (reqData) => {
                     Authorization: `Bearer ${reqData.token}`
                 }
             })
-            console.log("get all cart", data);
             dispatch({ type: GET_ALL_CART_ITEMS_SUCCESS, payload: data })
         } catch (error) {
-            console.log(error);
             dispatch({ type: GET_ALL_CART_ITEMS_FAILURE, payload: error, })
         }
     }
@@ -96,7 +92,6 @@ export const clearCart = (token) => {
             dispatch({ type: CLEAR_CART_SUCCESS, payload: data })
         } catch (error) {
             dispatch({ type: CLEAR_CART_FAILURE, payload: error.message, })
-            console.log(error);
         }
     }
 }
@@ -116,7 +111,6 @@ export const removeCartItem = (cartItemId) => {
                 dispatch(findCart(cartItemId.token));
             }
         } catch (error) {
-            console.log(error);
             dispatch({ type: REMOVE_CART_ITEM_FAILURE, payload: error, })
         }
     }
@@ -135,7 +129,6 @@ export const updateCartItem = (reqData) => {
             })
             dispatch({ type: UPDATE_CART_ITEM_SUCCESS, payload: data })
         } catch (error) {
-            console.log(error);
             dispatch({ type: UPDATE_MENU_ITEM_FAILURE, payload: error, })
         }
     }

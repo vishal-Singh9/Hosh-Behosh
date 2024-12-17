@@ -18,7 +18,10 @@ import {
   getRestaurantById,
   getRestaurantsCategories,
 } from "../State/Restaurant/Action";
-import { getMenuItemsByRestaurantId } from "../State/Menu/Action";
+import {
+  getMenuItemsByRestaurantId,
+  searchMenuItem,
+} from "../State/Menu/Action";
 import "/Users/indianic/Desktop/Swimmy/styles/RestaurantDetails.css";
 import { toast } from "react-toastify";
 
@@ -32,7 +35,7 @@ const foodTypes = [
 function RestaurantDetails() {
   const [foodType, setFoodType] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("");
-
+  const { searchResults } = useSelector((store) => store.menu);
   const handleFilter = (event) => {
     setFoodType(event.target.value);
   };
@@ -47,13 +50,47 @@ function RestaurantDetails() {
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
   const { restaurant, menu } = useSelector((store) => store);
-  console.log("menu", menu, "resatuarnt",restaurant);
+  const [searchData, setSearchData] = useState("");
   const { id } = useParams();
   const cleanedId = id?.replace(/[^\d]/g, ""); // Removes any non-numeric characters
-  console.log("Cleaned ID:", cleanedId);
-  
-  const restaurantId = cleanedId
-   
+  const restaurantId = cleanedId;
+
+  const debounce = (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  };
+
+  const debouncedSearchHandle = debounce((e) => {
+    const query = e.target.value.trim();
+    if (query) {
+      setSearchData(query);
+      dispatch(
+        searchMenuItem({
+          keyword: e.target.value,
+          token: localStorage.getItem("token"),
+        })
+      );
+    } else {
+      setSearchData(query);
+      dispatch(
+        getMenuItemsByRestaurantId({
+          restaurantId: restaurantId,
+          token,
+          vegetarian: foodType === "veg",
+          nonveg: foodType === "non-veg",
+          seasonal: foodType === "seasonal",
+          foodCategory: selectedCategory,
+        })
+      );
+    }
+  }, 300);
+
+
 
 
   useEffect(() => {
@@ -62,16 +99,15 @@ function RestaurantDetails() {
       return; // Exit the effect if no token
     }
 
-    dispatch(getRestaurantById({ restaurantId, token }));
+    // dispatch(getRestaurantById({ restaurantId, token }));
     dispatch(getAllRestaurantsAction())
       .then(() => {
         // Additional logic if needed after restaurants are fetched
       })
       .catch((error) => {
-        console.error("Error fetching restaurants:", error);
       });
 
-    dispatch(getRestaurantsCategories({ token, restaurantId }));
+    // dispatch(getRestaurantsCategories({ token, restaurantId }));
   }, [dispatch, restaurantId, token]);
 
   useEffect(() => {
@@ -87,8 +123,7 @@ function RestaurantDetails() {
     );
   }, [selectedCategory, foodType, restaurantId, token]);
 
-  const images =
-    restaurant?.restaurant?.images || [];
+  const images = restaurant?.restaurant?.images || [];
 
   return (
     <div className="px-5 lg:px-20 ">
@@ -117,17 +152,11 @@ function RestaurantDetails() {
           <div className="space-y-3 mt-3">
             <p className="text-gray-500 flex items-center gap-3">
               <LocationOnIcon />
-              <span>
-                {restaurant?.restaurant?.address?.street
-                }
-              </span>
+              <span>{restaurant?.restaurant?.address?.street}</span>
             </p>
             <p className="text-gray-500 flex items-center gap-3">
               <CalendarMonthIcon />
-              <span>
-                {restaurant?.restaurant?.openingHours
-}
-              </span>
+              <span>{restaurant?.restaurant?.openingHours}</span>
             </p>
           </div>
         </div>
@@ -136,6 +165,17 @@ function RestaurantDetails() {
       <section className="pt-[2rem] lg:flex relative">
         <div className="space-y-10 lg:w-[20%] filter ">
           <div className="box space-y-5 lg:sticky top-28 ">
+            <div>
+              <input
+                className="search"
+                type="text"
+                placeholder="Search Product"
+                onChange={debouncedSearchHandle}
+                // onClick={()=>{
+                //   searchHandle()
+                // }}
+              />
+            </div>
             <div>
               <Typography variant="h6" sx={{ paddingBottom: "1rem" }}>
                 Food Type
@@ -171,7 +211,6 @@ function RestaurantDetails() {
                   value={selectedCategory}
                 >
                   {restaurant?.categories.map((item) => (
-                  
                     <FormControlLabel
                       key={item.categoryId}
                       value={item.name}
@@ -184,17 +223,22 @@ function RestaurantDetails() {
             </div>
           </div>
         </div>
-
         <div className="space-y-5 lg:w-[80%] lg:pl-10">
-          {menu?.menuItems?.map((item) => {
-            return (
-              <MenuCard
-                key={item}
-                item={item}
-                restaurantId={item.restaurantId}
-              />
-            );
-          })}
+          { searchData?.length > 0
+            ? searchResults.map((item) => (
+                <MenuCard
+                  key={item.foodId}
+                  item={item}
+                  restaurantId={item.restaurantId}
+                />
+              ))
+            : menu?.menuItems?.map((item) => (
+                <MenuCard
+                  key={item.foodId}
+                  item={item}
+                  restaurantId={item.restaurantId}
+                />
+              ))}
         </div>
       </section>
     </div>
@@ -202,3 +246,6 @@ function RestaurantDetails() {
 }
 
 export default RestaurantDetails;
+
+
+18602662666

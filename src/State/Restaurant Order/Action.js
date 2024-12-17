@@ -24,9 +24,7 @@ export const updateOrderStatus = ({ orderId, orderStatus, token }) => {
             })
             
             dispatch({ type: UPDATE_ORDER_STATUS_SUCCESS, payload: data})
-            console.log("update order status", data);
         } catch (error) {
-            console.log(error);
             dispatch({ type: UPDATE_ORDER_STATUS_FAILURE, payload: error, })
         }
     }
@@ -44,7 +42,6 @@ export const fetchRestaurantOrders = ({ restaurantId, orderStatus, token }) => {
             })
             dispatch({ type: GET_RESTAURANT_ORDER_SUCCESS, payload: data })
         } catch (error) {
-            console.log(error);
             dispatch({ type: GET_RESTAURANT_ORDER_FAILURE, payload: error, })
         }
     }
@@ -62,10 +59,8 @@ export const deleteOrderStatus = ({ orderId, token }) => {
                 }
             })
             dispatch({ type: DELETE_ORDER_SUCCESS, payload: data })
-            console.log("delete order", data);
         } catch (error) {
             dispatch({ type: DELETE_ORDER_FAILURE, payload: error })
-            console.log(error);
         }
     }
 }

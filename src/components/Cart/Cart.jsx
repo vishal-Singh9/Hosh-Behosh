@@ -63,7 +63,6 @@ const Cart = () => {
     (store) => store
   );
 
-  console.log("cart", cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const restaurantId= restaurant?.restaurants?.map((res) => res.restaurantId);
@@ -92,7 +91,6 @@ const Cart = () => {
   };
 
   const handleSelectAddress = (address) => {
-    console.log("addresseofugh", address);
     dispatch(selectAddress(address));
   };
 

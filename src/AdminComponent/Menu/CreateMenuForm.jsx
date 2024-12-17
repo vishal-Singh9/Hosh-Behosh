@@ -85,7 +85,6 @@ const CreateMenuForm = () => {
         const { url } = await uploadImageToCloudinary(file);
         formik.setFieldValue("images", [...formik.values.images, url]);
       } catch (error) {
-        console.error("Image upload failed:", error);
       } finally {
         setIsUploading(false);
       }

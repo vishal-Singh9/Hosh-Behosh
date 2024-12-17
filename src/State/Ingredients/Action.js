@@ -13,10 +13,8 @@ export const createIngredient = ({ reqData, token }) => {
                 }
             })
             dispatch({ type: CREATE_INGREDIENTS_SUCCESS, payload: data })
-            console.log("create ingredient", data);
         }
         catch (error) {
-            console.log(error);
             dispatch({ type: CREATE_INGREDIENTS_FAILURE, payload: error, })
         }
     }
@@ -37,13 +35,11 @@ export const getIngredients = ({ restaurantId,token }) => {
 
 
         catch (error) {
-            console.log(error);
         }
     }
 }
 
 export const deleteIngredient = ({  token,ingredientsItemId }) => {
-console.log(ingredientsItemId);
     return async (dispatch) => {
         try {
             const { data } = await api.delete(`/api/admin/ingredients/item/delete?ingredientsItemId=${ingredientsItemId}`, {
@@ -56,14 +52,12 @@ console.log(ingredientsItemId);
 
 
         catch (error) {
-            console.log(error);
         }
 }}
 
 
 
 export const createIngredientCategory = ({reqData, token}) => {
-    console.log("reqData", reqData, "token", token)
     return async (dispatch) => {
         dispatch({ type: CREATE_INGREDIENT_CATEGORY_REQUEST })
         try {
@@ -73,10 +67,8 @@ export const createIngredientCategory = ({reqData, token}) => {
                 }
             })
             dispatch({ type: CREATE_INGREDIENT_CATEGORY_SUCCESS, payload: data })
-            console.log("create ingredient category", data);
         }
         catch (error) {
-            console.log(error);
             dispatch({ type: CREATE_INGREDIENT_CATEGORY_FAILURE, payload: error, })
         }
     }
@@ -94,10 +86,8 @@ export const getIngredientsOfRestaurant = ({ restaurantId, token }) => {
                 }
             })
             dispatch({ type: GET_INGREDIENT_CATEGORY_SUCCESS, payload: data })
-            console.log("get ingredient category", data);
         }
         catch (error) {
-            console.log(error);
         }
     }
 
@@ -114,7 +104,6 @@ export const deleteIngredientCategory = ({ token, ingredientCategoryId }) => {
                 dispatch({ type: DELETE_INGREDIENT_CATEGORY, payload: data })
 }
             catch (error) {
-                console.log(error);
             }
         }
     }
@@ -129,10 +118,8 @@ export const updateIngredient = (id, token) => {
                 }
             })
             dispatch({ type: CREATE_INGREDIENTS_SUCCESS, payload: data })
-            console.log("update ingredient", response.data);
         }
         catch (error) {
-            console.log(error);
             dispatch({ type: CREATE_INGREDIENTS_FAILURE, payload: error, })
         }
     }

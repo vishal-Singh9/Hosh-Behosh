@@ -60,7 +60,6 @@ const CheckoutPage = () => {
       country: "India",
     };
     const restaurantId = restaurant?.restaurant?.restaurantId
-    console.log(restaurantId)
     dispatch(createOrder(token, deliveryAddress, restaurantId));
 
     navigate("/confirmation");

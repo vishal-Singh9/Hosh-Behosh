@@ -50,10 +50,8 @@ export const createRestaurant = ({reqData, token}) => {
                 }
             })
             dispatch({ type: CREATE_RESTAURANT_SUCCESS, payload: data })
-            console.log("create restaurant", data);
         }
         catch (error) {
-            console.log(error);
             dispatch({ type: CREATE_RESTAURANT_FAILURE, payload: error, })
         }
     }
@@ -75,26 +73,21 @@ export const getAllRestaurantsAction = () => {
             dispatch({ type: GET_ALL_RESTAURANTS_SUCCESS, payload: data })
         } catch (error) {
             dispatch({ type: GET_ALL_RESTAURANTS_FAILURE, payload: error })
-            console.log(error);
         }
     }
 }
 export const getRestaurantById = ({restaurantId,token}) => {
-console.log("frtydxtrestaurantId",restaurantId)
     return async (dispatch) => {
         dispatch({ type: GET_RESTAURANT_BY_ID_REQUEST });
         try {
-            console.log("Vishalllll")
             const { data } = await api.get(`api/restaurant?restaurantId=${restaurantId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(data , "data store")
             dispatch({ type: GET_RESTAURANT_BY_ID_SUCCESS, payload: data });
         } catch (error) {
             dispatch({ type: GET_RESTAURANT_BY_ID_FAILURE, payload: error });
-            console.log(error);
         }
     };
 };
@@ -121,7 +114,6 @@ export const getRestaurantsCategories = ({restaurantId,token}) => {
 
 
 export const deleteRestaurantCategory = ({ categoryId, token }) => {
-    console.log("categoryId",categoryId);
     return async (dispatch) => {
         try {
             const { data } = await api.delete(`/api/admin/category/delete?categoryId=${categoryId}`, {
@@ -132,7 +124,6 @@ export const deleteRestaurantCategory = ({ categoryId, token }) => {
             dispatch({ type: DELETE_RESTAURANTS_CATEGORY, payload: data })
 }
         catch (error) {
-            console.log(error);
         }
     }
 }
@@ -150,7 +141,6 @@ export const getRestaurantByUserId = (token) => {
         }
         catch (error) {
             dispatch({ type: GET_RESTAURANT_BY_USER_ID_FAILURE, payload: error })
-            console.log(error);
         }
     }
 }
@@ -166,9 +156,7 @@ export const updateRestaurant = ({ restaurantId, restaurantData, token }) => {
                 }
             })
             dispatch({ type: UPDATE_RESTAURANT_STATUS_SUCCESS, payload: data })
-            console.log("update restaurant", data);
         } catch (error) {
-            console.log(error);
             dispatch({ type: UPDATE_RESTAURANT_STATUS_FAILURE, payload: error, })
         }
     }
@@ -183,10 +171,8 @@ export const deleteRestaurant = ({ restaurantId, token }) => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log("delete restaurant", data);
             dispatch({ type: DELETE_EVENTS_SUCCESS, payload: data })
         } catch (error) {
-            console.log(error);
             dispatch({ type: DELETE_RESTAURANT_FAILURE, payload: error, })
         }
     }
@@ -203,10 +189,8 @@ export const updateRestaurantStatus = ({ restaurantId ,token}) => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log("update restaurant status", data);
             dispatch({ type: UPDATE_RESTAURANT_STATUS_SUCCESS, payload: data })
         } catch (error) {
-            console.log(error);
             dispatch({ type: UPDATE_RESTAURANT_STATUS_FAILURE, payload: error, })
         }
     }
@@ -214,7 +198,6 @@ export const updateRestaurantStatus = ({ restaurantId ,token}) => {
 
 
 export const createEventAction = ({reqData, token, restaurantId}) => {
-    console.log("reqData", reqData, "token", token,restaurantId)
     return async (dispatch) => {
         dispatch({ type: CREATE_EVENTS_REQUEST })
         try {
@@ -224,9 +207,7 @@ export const createEventAction = ({reqData, token, restaurantId}) => {
                 }
             })
             dispatch({ type: CREATE_EVENTS_SUCCESS, payload: data })
-            console.log("create event", data);
         } catch (error) {
-            console.log(error);
             dispatch({ type: CREATE_EVENTS_FAILURE, payload: error, })
         }
     }
@@ -242,10 +223,8 @@ export const getAllEvents = (token) => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log("get all events", data);
             dispatch({ type: GET_ALL_EVENTS_SUCCESS, payload: res.data })
         } catch (error) {
-            console.log(error);
             dispatch({ type: GET_ALL_EVENTS_FAILURE, payload: error, })
         }
     }
@@ -260,10 +239,8 @@ export const deleteEvent = ({ eventId, token }) => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log("delete event", res.data);
             dispatch({ type: DELETE_EVENTS_SUCCESS, payload: data })
         } catch (error) {
-            console.log(error);
             dispatch({ type: DELETE_EVENTS_FAILURE, payload: error, })
         }
     }
@@ -279,10 +256,8 @@ export const getRestaurantsEvents = ({ restaurantId, token }) => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log("get restaurants events", res.data);
             dispatch({ type: GET_RESTAURANTS_EVENTS_SUCCESS, payload: res.data })
         } catch (error) {
-            console.log(error);
             dispatch({ type: GET_RESTAURANTS_EVENTS_FAILURE, payload: error, })
         }
     }
@@ -299,9 +274,7 @@ export const createCategoryAction = (reqData, token) => {
                 }
             })
             dispatch({ type: CREATE_CATEGORY_SUCCESS, payload: res.data })
-            console.log("create category", data);
         } catch (error) {
-            console.log(error);
             dispatch({ type: CREATE_CATEGORY_FAILURE, payload: error, })
         }
     }

@@ -5,7 +5,7 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { useDispatch, useSelector } from "react-redux";
-import {  updateRestaurantStatus } from "../../State/Restaurant/Action";
+import { getRestaurantById, updateRestaurantStatus } from "../../State/Restaurant/Action";
 
 const RestaurantDetails = () => {
   const dispatch = useDispatch();

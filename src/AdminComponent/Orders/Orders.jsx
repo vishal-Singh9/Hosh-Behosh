@@ -6,15 +6,15 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import OrderTable from "./OrderTable";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRestaurantOrders } from "../../State/Restaurant Order/Action";
+import OrderTable from "./OrderTable";
 
 const orderStatus = [
   {
     label: "All",
-    
+ 
   },
   {
     label: "Pending",
@@ -33,30 +33,37 @@ const orderStatus = [
     value: "OUT_FOR_DELIVERY",
   },
 ];
+
 const Orders = () => {
-  const [filterValue, setFilterValue] = useState("");
-  const { order, restaurantOrder ,restaurant} = useSelector((store) => store);
+  const [filterValue, setFilterValue] = useState(""); // Updated default to match "All" value
+  const { restaurant } = useSelector((store) => store);
   const token = localStorage.getItem("token");
-  const restaurantId = restaurant?.userRestaurants?.restaurantId;
+  const restaurantId = restaurant?.userRestaurants?.restaurantId || ""; // Fallback to empty string
 
   const dispatch = useDispatch();
 
- 
   const handleFilter = (e) => {
-    dispatch(fetchRestaurantOrders({ token, orderStatus: e.target.value,restaurantId }));
-    setFilterValue(e.target.value);
+    const selectedValue = e.target.value;
+    setFilterValue(selectedValue); // Update filterValue state
+    dispatch(
+      fetchRestaurantOrders({
+        token,
+        orderStatus: selectedValue === "ALL" ? "" : selectedValue, // Pass empty string for "ALL"
+        restaurantId,
+      })
+    );
   };
 
   return (
     <div className="px-2">
       <Card className="p-4">
-        <Typography sx={{ paddingBottom: "1 rem" }}>Order Status</Typography>
+        <Typography sx={{ paddingBottom: "1rem" }}>Order Status</Typography>
         <FormControl>
           <RadioGroup
             onChange={handleFilter}
             row
             name="category"
-            value={filterValue || "all"}
+            value={filterValue} // Bind to state
           >
             {orderStatus.map((item) => (
               <div key={item.value}>
@@ -70,7 +77,7 @@ const Orders = () => {
           </RadioGroup>
         </FormControl>
       </Card>
-      <OrderTable filterValue={filterValue}></OrderTable>
+      <OrderTable filterValue={filterValue} />
     </div>
   );
 };

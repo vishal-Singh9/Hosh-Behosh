@@ -7,7 +7,6 @@ const AdminRoutes = () => {
   const{restaurant} = useSelector(store=>store)
   return (
     <div>
-        <h1>Admin/Restaurants</h1>
       <Routes>
         <Route path="/*" element={!restaurant?.userRestaurants ? <CreateRestaurantForm/> : <Admin/>}>
 

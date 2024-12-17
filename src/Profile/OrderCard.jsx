@@ -4,7 +4,6 @@ import { Button } from "@mui/material";
 import "/styles/OrderCard.css";
 
 const OrderCard = ({ order, item }) => {
-  console.log("order", order, "item", item);
   return (
     <Card className="order-card">
       <div className="item-details">

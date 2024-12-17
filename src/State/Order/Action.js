@@ -10,7 +10,6 @@ import {
 
 
 export const createOrder = (token,deliveryAddress,restaurantId) => {
-   console.log("token",token,"deliveryAddress",deliveryAddress,"restaurantId",restaurantId)
     return async (dispatch) => {
         dispatch({ type: CREATE_ORDER_REQUEST })
         try {
@@ -20,16 +19,13 @@ export const createOrder = (token,deliveryAddress,restaurantId) => {
                 }
             })
             dispatch({ type: CREATE_ORDER_SUCCESS, payload: data })
-            console.log("create order yash", data);
         } catch (error) {
-            console.log(error);
             dispatch({ type: CREATE_ORDER_FAILURE, payload: error, })
         }
     }
 }
 
 export const getUsersOrders = ({ token,userId}) => {
-    console.log( "token", token,userId)
 
     return async (dispatch) => {
         dispatch({ type: GET_USERS_ORDERS_REQUEST})
@@ -39,10 +35,8 @@ export const getUsersOrders = ({ token,userId}) => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log("get order", data);
             dispatch({ type: GET_USERS_ORDERS_SUCCESS, payload: data })
         } catch (error) {
-            console.log(error);
             dispatch({ type: GET_USERS_ORDERS_FAILURE, payload: error, })
         }
     }

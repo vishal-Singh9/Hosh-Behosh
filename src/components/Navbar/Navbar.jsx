@@ -12,20 +12,20 @@ import { searchMenuItem } from "../../State/Menu/Action";
 
 function Navbar() {
   const { auth, cart } = useSelector((store) => store);
-  const {searchResults} = useSelector(store=>store.menu)
+  // const {searchResults} = useSelector(store=>store.menu)
   const navigate = useNavigate();
   const dispatch=useDispatch();
 
 
-  const searchHandle = async (e) => {
-    dispatch(
-      searchMenuItem({
-        keyword: e.target.value,
-        token: localStorage.getItem("token"),
-      })
-    );
-    navigate(`/search?query=${e.target.value}`);
-  };
+  // const searchHandle = async (e) => {
+  //   dispatch(
+  //     searchMenuItem({
+  //       keyword: e.target.value,
+  //       token: localStorage.getItem("token"),
+  //     })
+  //   );
+  //   navigate(`/search?query=${e.target.value}`);
+  // };
   
   const handleAvatarClick = () => {
     if (auth?.user?.role === "ROLE_CUSTOMER") {
@@ -63,6 +63,7 @@ function Navbar() {
           |-|osh BeHosh
         </div>
       </div>
+      
       <div className="flex items-center space-x-4 justify-end">
         <div>
           <IconButton onClick={handleFavoritesClick}>
@@ -80,8 +81,8 @@ function Navbar() {
           ) : (
             <IconButton
               onClick={() => {
-                toast.info("Please log in to access your account.");
                 navigate("/account/login");
+                //  toast.info("Please log in to access your account.");
               }}
             >
               <Person />
@@ -95,7 +96,7 @@ function Navbar() {
             </Badge>
           </IconButton>
         </div>
-        <div>
+        {/* <div>
     <input
       className="search"
       type="text"
@@ -115,7 +116,7 @@ function Navbar() {
         ))}
       </div>
     )}
-  </div>
+  </div> */}
       </div>
     </Box>
   );

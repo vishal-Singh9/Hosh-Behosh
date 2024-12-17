@@ -13,7 +13,16 @@ import {
     GET_USER_FAILURE,
     GET_USER_SUCCESS,
     ADD_TO_FAVORITES_FAILURE,
-    ADD_TO_FAVORITES_REQUEST
+    ADD_TO_FAVORITES_REQUEST,
+    VERIFY_OTP_REQUEST,
+    VERIFY_OTP_SUCCESS,
+    SEND_OTP_REQUEST,
+    SEND_OTP_SUCCESS,
+    SEND_OTP_FAILURE,
+    RESET_OTP_STATE,
+    UPDATE_PASSWORD_FAILURE,
+    UPDATE_PASSWORD_SUCCESS,
+    UPDATE_PASSWORD_REQUEST
 } from "./ActionType";
 
 export const registerUser = (reqData) => async (dispatch) => {
@@ -29,11 +38,9 @@ export const registerUser = (reqData) => async (dispatch) => {
             reqData.navigate("/")
         }
         dispatch({ type: REGISTER_SUCCESS, payload: data })
-        console.log("REGISTER SUCCESSFULLY");
     }
     catch (error) {
         dispatch({ type: REGISTER_FAILURE, payload: error })
-        console.log("error", error);
     }
 }
 
@@ -46,6 +53,7 @@ export const LoginUser = (reqData) => async (dispatch) => {
     try {
         const { data } = await axios.post(`${API_URL}/auth/signin`, reqData.userData);
         if (data.token) localStorage.setItem("token", data.token);
+        if(data.user) localStorage.setItem("user", JSON.stringify(data.user));
 
         if (data.role === "ROLE_RESTAURANT_OWNER") {
             reqData.navigate("/admin/restaurants")
@@ -57,7 +65,6 @@ export const LoginUser = (reqData) => async (dispatch) => {
     }
     catch (error) {
         dispatch({ type: LOGIN_FAILURE, payload: error })
-        console.log(error);
     }
 }
 
@@ -78,7 +85,6 @@ export const getUser = (token) => async (dispatch) => {
     }
     catch (error) {
         dispatch({ type: GET_USER_FAILURE, payload: error })
-        console.log("error", error);
     }
 }
 
@@ -97,9 +103,55 @@ export const addTofavorite = ({ restaurantId, token }) => async (dispatch) => {
     }
     catch (error) {
         dispatch({ type: ADD_TO_FAVORITES_FAILURE })
-        console.log("remove", error);
     }
 }
+
+export const verifyOtp = (email, otp) => async (dispatch) => {
+    dispatch({ type: VERIFY_OTP_REQUEST })
+    try {
+        const { data } = await api.post(`/verify-Otp?otp=${otp}&email=${email}`,otp,email);
+        
+
+        dispatch({ type: VERIFY_OTP_SUCCESS, payload: data })
+    }
+    catch (error) {
+        dispatch({ type: VERIFY_OTP_FAILURE, payload: error })
+    }
+}
+
+export const sendOtp = (email) => async (dispatch) => {
+    console.log("osdufbh",email)
+    dispatch({ type: SEND_OTP_REQUEST })
+    try {
+        const { data } = await api.post(`/send-otp?email=${email}`,email);
+        
+        dispatch({ type: SEND_OTP_SUCCESS, payload: data })
+        console.log("otppp",data)
+    }
+    catch (error) {
+        dispatch({ type: SEND_OTP_FAILURE, payload: error })
+        console.log("error",error)
+    }
+    dispatch({
+        type: RESET_OTP_STATE
+    })}
+
+export const updatePassword = (email,context,passwords) => async (dispatch) => {
+    console.log("email",email,"context",context)
+    dispatch({ type: UPDATE_PASSWORD_REQUEST})
+    try {
+       
+        const { data } = await api.post(`/change-newPassword?email=${email}&context=${context}`,passwords);
+       
+
+        dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data })
+    }
+    catch (error) {
+        dispatch({ type: UPDATE_PASSWORD_FAILURE, payload: error })          
+    }
+
+}
+
 
 export const logout = () => async (dispatch) => {
 
@@ -110,10 +162,8 @@ export const logout = () => async (dispatch) => {
         localStorage.clear();
 
         dispatch({ type: LOGOUT })
-        console.log("LOGOUT SUCCESSFULLY");
     }
     catch (error) {
         dispatch({ type: LOGOUT })
-        console.log(error);
     }
 }

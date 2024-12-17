@@ -13,7 +13,6 @@ import {
 const CreateOrderForm = () => {
   const dispatch = useDispatch();
   const { restaurant } = useSelector((store) => store);
-  console.log("restt", restaurant);
   const restaurantId = restaurant?.restaurants?.map((res) => res.restaurantId).join(",");
   const token = localStorage.getItem("token");
   const [deliveryAddress, setDeliveryAddress] = useState({

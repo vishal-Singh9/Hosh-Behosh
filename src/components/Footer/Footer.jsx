@@ -1,24 +1,17 @@
 import React from "react";
 import { Box, Typography, Grid, Link, IconButton } from "@mui/material";
 import { Facebook, Twitter, Instagram, LinkedIn } from "@mui/icons-material";
-
+import "/styles/Footer.css";
 const Footer = () => {
   return (
-    <Box
-      sx={{
-        backgroundColor: "#1a1a1a",
-        color: "#fff",
-        py: 6,
-        px: { xs: 3, sm: 6, md: 12 },
-      }}
-    >
+    <Box className="footer-container">
       <Grid container spacing={4}>
         {/* About Us Section */}
         <Grid item xs={12} md={4}>
-          <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
+          <Typography variant="h6" className="footer-title">
             About Us
           </Typography>
-          <Typography variant="body2" sx={{ lineHeight: 1.8 }}>
+          <Typography variant="body2" className="footer-text">
             We are dedicated to providing the best quality services and products
             to our customers. Our mission is to bring innovation and excellence
             to your experience.
@@ -27,18 +20,17 @@ const Footer = () => {
 
         {/* Quick Links Section */}
         <Grid item xs={12} md={4}>
-          <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
+          <Typography variant="h6" className="footer-title">
             Quick Links
           </Typography>
-          <Box>
-            <Link href="/" underline="none" sx={{ color: "#fff", display: "block", mb: 1 }}>
+          <Box className="footer-links">
+            <Link href="/" className="footer-link">
               Home
             </Link>
-            <Link href="/about" underline="none" sx={{ color: "#fff", display: "block", mb: 1 }}>
+            <Link href="/about" className="footer-link">
               About Us
             </Link>
-           
-            <Link href="/contact" underline="none" sx={{ color: "#fff", display: "block", mb: 1 }}>
+            <Link href="/contact" className="footer-link">
               Contact Us
             </Link>
           </Box>
@@ -46,31 +38,31 @@ const Footer = () => {
 
         {/* Contact Us Section */}
         <Grid item xs={12} md={4}>
-          <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
+          <Typography variant="h6" className="footer-title">
             Contact Us
           </Typography>
-          <Typography variant="body2" sx={{ lineHeight: 1.8, mb: 2 }}>
+          <Typography variant="body2" className="footer-text">
             431 Innovation Street, DELHI
             <br />
             INDIA, IND 30001
             <br />
-            Email:hoshbehosh@gmail.com
+            Email: hoshbehosh@gmail.com
             <br />
             Phone: +1 91 234 567 890
           </Typography>
 
           {/* Social Media Icons */}
-          <Box>
-            <IconButton sx={{ color: "#fff", mr: 1 }} href="https://facebook.com">
+          <Box className="footer-social-icons">
+            <IconButton href="https://facebook.com">
               <Facebook />
             </IconButton>
-            <IconButton sx={{ color: "#fff", mr: 1 }} href="https://twitter.com">
+            <IconButton href="https://twitter.com">
               <Twitter />
             </IconButton>
-            <IconButton sx={{ color: "#fff", mr: 1 }} href="https://instagram.com">
+            <IconButton href="https://instagram.com">
               <Instagram />
             </IconButton>
-            <IconButton sx={{ color: "#fff" }} href="https://linkedin.com">
+            <IconButton href="https://linkedin.com">
               <LinkedIn />
             </IconButton>
           </Box>
@@ -78,16 +70,11 @@ const Footer = () => {
       </Grid>
 
       {/* Footer Bottom */}
-      <Box
-        sx={{
-          borderTop: "1px solid #444",
-          mt: 4,
-          pt: 3,
-          textAlign: "center",
-        }}
-      >
+      <Box className="footer-bottom">
         <Typography variant="body2">
           © {new Date().getFullYear()} Your Company. All rights reserved.
+          <Link href="/privacy-policy">Privacy Policy</Link> |{" "}
+          <Link href="/terms-of-service">Terms of Service</Link>
         </Typography>
       </Box>
     </Box>

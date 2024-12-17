@@ -90,7 +90,7 @@ const AdminSideBar = () => {
 
           {/* Footer */}
           <div className="text-center py-4 text-sm opacity-70">
-            &copy; 2024 Your App Name
+            &copy; 2024 Hosh Behosh
           </div>
         </div>
       </Drawer>

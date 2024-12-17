@@ -23,7 +23,7 @@ function HomePage() {
             Hosh BeHosh
           </p>
           <p className="text-xl lg:text-4xl font-bold z-10 text-white">
-            Taste the Convenience: FOOd ,Fast and Delivered.
+            Taste the Convenience: fOOd ,Fast and Delivered.
           </p>
         </div>
         <div className="cover absolute top-0 left-0 right-0"></div>
@@ -55,6 +55,14 @@ function HomePage() {
             
           })}
         </div>
+      </section>
+      <section className="cta bg-gradient-to-r from-green-400 to-green-600 py-12 text-center">
+        <h3 className="text-3xl font-bold text-white mb-4">
+          Hungry? Order Now and Get Your Food Delivered Fast!
+        </h3>
+        <button className="px-6 py-3 text-lg font-semibold text-green-600 bg-white rounded-full shadow-md hover:bg-gray-200 transition-all duration-300">
+          Explore Restaurants
+        </button>
       </section>
     </div>
   );

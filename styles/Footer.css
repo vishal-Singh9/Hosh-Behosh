@@ -1,0 +1,76 @@
+.footer-container {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .footer-title {
+    font-weight: bold;
+    color: #ff4081; /* Vibrant color for titles */
+    margin-bottom: 16px;
+  }
+  
+  .footer-text {
+    line-height: 1.8;
+    color: #bdbdbd;
+  }
+  
+  .footer-links {
+    margin-top: 16px;
+  }
+  
+  .footer-link {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-link:hover {
+    color: #ff4081; /* Vibrant hover effect */
+  }
+  
+  .footer-social-icons {
+    margin-top: 16px;
+  }
+  
+  .footer-social-icons .MuiIconButton-root {
+    color: #fff;
+    margin-right: 12px;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .footer-social-icons .MuiIconButton-root:hover {
+    color: #ff4081;
+    transform: scale(1.1); /* Add scale effect on hover */
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid #444;
+    margin-top: 32px;
+    padding-top: 16px;
+    text-align: center;
+    font-size: 14px;
+    color: #bdbdbd;
+  }
+  
+  .footer-bottom a {
+    color: #ff4081;
+    text-decoration: none;
+    margin-left: 5px;
+  }
+  
+  .footer-bottom a:hover {
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 768px) {
+    .footer-container {
+      padding: 20px;
+    }
+  }
+  
